@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindMyPLWD.EditInfoPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="CadetBlue" Padding="24" CornerRadius="0">
+                <Label x:Name="DeviceLabel" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+            </Frame>
+            <Label x:Name="Name" Text="Name"/>
+            <Entry x:Name="NameField"/>
+            <Label x:Name="Address" Text="Address"/>
+            <Entry x:Name="AddressField"/>
+            <Label x:Name="AdditionalInformation" Text="Additional Info:"/>
+            <Entry x:Name="InfoField"/>
+            <Button x:Name="SaveButton" Text="Save Changes" Clicked="SaveChanges"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

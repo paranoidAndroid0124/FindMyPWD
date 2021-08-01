@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindMyPLWD.ViewPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Device1:"/>
+            <Label x:Name = "D1Name" Text="Name:"/>
+            <Label x:Name = "D1Address" Text="Address:"/>
+            <Label x:Name = "D1Info" Text="Additional Information:"/>
+            <Label Text="Device2:"/>
+            <Label x:Name = "D2Name" Text="Name:"/>
+            <Label x:Name = "D2Address" Text="Address:"/>
+            <Label x:Name = "D2Info" Text="Additional Information:"/>
+            <Label Text="Device3:"/>
+            <Label x:Name = "D3Name" Text="Name:"/>
+            <Label x:Name = "D3Address" Text="Address:"/>
+            <Label x:Name = "D3Info" Text="Additional Information:"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

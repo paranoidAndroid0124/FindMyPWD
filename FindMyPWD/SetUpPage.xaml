@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindMyPLWD.SetUpPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="CadetBlue" Padding="24" CornerRadius="0">
+                <Label Text="Choose a Device to Set Up" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+            </Frame>
+            <Button x:Name ="B1" Text="Device 1" Clicked="Dev_select"/>
+            <Button x:Name= "B2" Text="Device 2" Clicked="Dev_select"/>
+            <Button x:Name= "B3" Text="Device 3" Clicked="Dev_select"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
