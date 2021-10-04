@@ -53,6 +53,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Plugin.BLE">
+      <Version>2.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Core">
       <Version>1.6.0.3</Version>
     </PackageReference>
