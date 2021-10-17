@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -52,10 +51,7 @@ namespace FindMyPLWD
 
         private async Task CheckLocPer()
         {
-            //perStatus = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-#pragma warning disable CS0618 // Type or member is obsolete
-            perStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationWhenInUse);
-#pragma warning restore CS0618 // Type or member is obsolete
+            perStatus = await CrossPermissions.Current.RequestPermissionAsync<LocationWhenInUsePermission>();
         }
         async void ScanBLE(object sender, System.EventArgs e)
         {
@@ -64,19 +60,20 @@ namespace FindMyPLWD
             {
                 adapter.DeviceDiscovered += (s, a) => deviceList.Add(a.Device);
                 await adapter.StartScanningForDevicesAsync();
-                //for(int i = 0; i < deviceList.Count(); i++)
-                //{
-                TempLbl.Text = "Test";
-                //}
+                for(int i = 0; i < deviceList.Count(); i++)
+                {
+                    if(deviceList[i].Name != null)
+                    {
+                        TempLbl.Text += deviceList[i].Name;
+                    }
+                }
             }
             else //if scanning is not possible
             {
                 if (perStatus == PermissionStatus.Denied)
                 {
-#pragma warning disable CS0618 // Type or member is obsolete
-                    var response = await CrossPermissions.Current.RequestPermissionsAsync(Permission.LocationWhenInUse);
-#pragma warning restore CS0618 // Type or member is obsolete
-                    perStatus = response.Values.First();
+                    var response = await CrossPermissions.Current.RequestPermissionAsync<LocationWhenInUsePermission>();
+                    perStatus = response;
                     TempLbl.Text = "Please enable loc per";
                 }
                 else
