@@ -1,6 +1,8 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using FindMyPWD.Droid;
 using Plugin.CurrentActivity;
 using System;
 //using Xamarin.Forms;
@@ -18,6 +20,10 @@ public class MainApplication : Application, Application.IActivityLifecycleCallba
         base.OnCreate();
         RegisterActivityLifecycleCallbacks(this);
         //A great place to initialize Xamarin.Insights and Dependency Services!
+
+        //Periodic service....might not be needed read documentation
+        var intent = new Intent(this, typeof(PeriodicService));
+        StartService(intent);
     }
 
     public override void OnTerminate()
