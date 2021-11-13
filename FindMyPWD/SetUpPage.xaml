@@ -11,7 +11,8 @@
             <Button x:Name= "B2" Text="Device 2" Clicked="Dev_select"/>
             <Button x:Name= "B3" Text="Device 3" Clicked="Dev_select"/>
             <Button x:Name= "Pairing" Text="Pair new device" Clicked="Pairing_Clicked"/>
-            <ListView x:Name="DeviceView" ItemsSource="{Binding BLEDevicesCollection}">
+            <Label x:Name="TempLbl"/>
+            <ListView x:Name="DeviceView" ItemsSource="{Binding BLEDevicesCollection}" ItemSelected="OnSelectedItem">
             </ListView>
         </StackLayout>
     </ContentPage.Content>

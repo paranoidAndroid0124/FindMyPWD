@@ -44,41 +44,33 @@ namespace FindMyPWD.Helper
         {
             perStatus = await CrossPermissions.Current.RequestPermissionAsync<LocationWhenInUsePermission>();
         }
-        public async Task<string[]> ScanBLE(object sender, System.EventArgs e)
+
+        public async Task<string> CheckBLE()
         {
-            List<string> list = new List<string>();
-            string[] result;
+            string result; 
+            if (perStatus == PermissionStatus.Denied) //wrong permission
+            {
+                var response = await CrossPermissions.Current.RequestPermissionAsync<LocationWhenInUsePermission>();
+                perStatus = response;
+                result = "Please enable loc per";
+            }
+            else //BLE is on
+            {
+                result = "BLE is on!!!";
+            }
+            return result;
+        }
+
+        public async Task<ObservableCollection<IDevice>> ScanBLE(object sender, System.EventArgs e)
+        {
             await CheckLocPer();
             if (BLEStatus() && perStatus == PermissionStatus.Granted) //check if scanning is possible
             {
                 adapter.DeviceDiscovered += (s, a) => deviceList.Add(a.Device);
                 await adapter.StartScanningForDevicesAsync();
-                for (int i = 0; i < deviceList.Count(); i++)
-                {
-                    if (deviceList[i].Name != null)
-                    {
-                        list.Add(deviceList[i].Name);
-                    }
-                }
-                result = list.ToArray();
-                return result;
+                return deviceList;
             }
-            else //if scanning is not possible
-            {
-                if (perStatus == PermissionStatus.Denied)
-                {
-                    var response = await CrossPermissions.Current.RequestPermissionAsync<LocationWhenInUsePermission>();
-                    perStatus = response;
-                    list.Add("Please enable loc per");
-                }
-                else
-                {
-                    list.Add("BLE is off!!!");
-                }
-                result = list.ToArray();
-                return result;
-            }
-
+            return null;
         }
     }
 }

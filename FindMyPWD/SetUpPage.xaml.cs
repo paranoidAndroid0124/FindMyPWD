@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using FindMyPWD.Helper;
 using System.Collections.ObjectModel;
+using Plugin.BLE.Abstractions.Contracts;
 
 namespace FindMyPLWD
 {
@@ -23,7 +24,7 @@ namespace FindMyPLWD
             _cdp = cdp;
             InitializeComponent();
             BLEHelper = new BLEScanneHelper();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++) //why is this hard coded...do we even need this
             {
                 if (_cdp.getData(i).getName() != null && _cdp.getData(i).getAddress() != null)
                 {
@@ -65,13 +66,22 @@ namespace FindMyPLWD
 
         async void Pairing_Clicked(object sender, EventArgs e)
         {
-            string[] BLEscan = await BLEHelper.ScanBLE(sender, e);
+           var BLEscan = await BLEHelper.ScanBLE(sender, e);
 
-            foreach(string item in BLEscan) 
+            for (int i = 0; i < BLEscan.Count(); i++) 
             {
-                BLEDevices.Add(item);
+                if (BLEscan[i].Name != null)
+                {
+                    BLEDevices.Add(BLEscan[i].Name);
+                }
             }
 
+        }
+
+        //need a function that get the device selected by the user
+        void OnSelectedItem(object sender, SelectedItemChangedEventArgs e)
+        {
+            TempLbl.Text = e.SelectedItem.ToString();
         }
     }
 }
