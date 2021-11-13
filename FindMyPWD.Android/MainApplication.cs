@@ -21,9 +21,11 @@ public class MainApplication : Application, Application.IActivityLifecycleCallba
         RegisterActivityLifecycleCallbacks(this);
         //A great place to initialize Xamarin.Insights and Dependency Services!
 
+
+
         //Periodic service....might not be needed read documentation
-        var intent = new Intent(this, typeof(PeriodicService));
-        StartService(intent);
+        //var intent = new Intent(this, typeof(PeriodicService)); //disabled for now
+        //StartService(intent);
     }
 
     public override void OnTerminate()
