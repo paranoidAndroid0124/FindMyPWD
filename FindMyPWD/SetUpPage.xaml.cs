@@ -16,9 +16,11 @@ namespace FindMyPLWD
     public partial class SetUpPage : ContentPage
     {
         private CurrentDevicePage _cdp;
+        ObservableCollection<IDevice> BLEscan;
         private readonly BLEScanneHelper BLEHelper;
         ObservableCollection<String> BLEDevices = new ObservableCollection<String>();
         public ObservableCollection<String> BLEDevicesCollection { get { return BLEDevices; } }
+
         public SetUpPage(CurrentDevicePage cdp)
         {
             _cdp = cdp;
@@ -66,7 +68,7 @@ namespace FindMyPLWD
 
         async void Pairing_Clicked(object sender, EventArgs e)
         {
-           var BLEscan = await BLEHelper.ScanBLE(sender, e);
+           BLEscan = await BLEHelper.ScanBLE(sender, e);
 
             for (int i = 0; i < BLEscan.Count(); i++) 
             {
@@ -78,10 +80,23 @@ namespace FindMyPLWD
 
         }
 
-        //need a function that get the device selected by the user
+        //get the selected device
         void OnSelectedItem(object sender, SelectedItemChangedEventArgs e)
         {
-            TempLbl.Text = e.SelectedItem.ToString();
+            TempLbl.Text = "in onSelectedItem method";
+            string selection = e.SelectedItem.ToString();
+            IDevice pairedDevice;
+            //find the selected device
+            for (int i = 0; ; i++)
+            {
+                if (selection == BLEscan[i].Name)
+                {
+                    pairedDevice = BLEscan[i];
+                    break;
+                }
+            }
+            TempLbl.Text = pairedDevice.Id.ToString();
+            // get id, name and address
         }
     }
 }
