@@ -29,15 +29,7 @@ namespace FindMyPWD.Helper
         }
         bool BLEStatus()
         {
-            var state = ble.State;
-            if (state.ToString() == "On")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ble.State.ToString() == "On";
         }
 
         private async Task CheckLocPer()
