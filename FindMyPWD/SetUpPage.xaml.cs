@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using FindMyPWD.Helper;
+using FindMyPWD.Model;
 using System.Collections.ObjectModel;
 using Plugin.BLE.Abstractions.Contracts;
+using System.IO;
+using SQLite;
 
 namespace FindMyPLWD
 {
@@ -20,6 +22,7 @@ namespace FindMyPLWD
         private readonly BLEScanneHelper BLEHelper;
         ObservableCollection<String> BLEDevices = new ObservableCollection<String>();
         public ObservableCollection<String> BLEDevicesCollection { get { return BLEDevices; } }
+        private IDevice pairedDevice;
 
         public SetUpPage(CurrentDevicePage cdp)
         {
@@ -85,7 +88,7 @@ namespace FindMyPLWD
         {
             TempLbl.Text = "in onSelectedItem method";
             string selection = e.SelectedItem.ToString();
-            IDevice pairedDevice;
+            
             //find the selected device
             for (int i = 0; ; i++)
             {
@@ -96,7 +99,22 @@ namespace FindMyPLWD
                 }
             }
             TempLbl.Text = pairedDevice.Id.ToString();
-            // get id, name and address
+            savePairedDevice(pairedDevice);
         }
+
+        //save paired device
+        void savePairedDevice(IDevice pairedDevice) 
+        {
+            BLEDevice bLEDevice = new BLEDevice(pairedDevice.Name, pairedDevice.Id.ToString());
+
+            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+            {
+                conn.CreateTable<BLEDevice>();
+                //conn.Insert(pairedDevice);
+                int rowsAdded = conn.Insert(bLEDevice);
+            }
+            
+        }
+
     }
 }
