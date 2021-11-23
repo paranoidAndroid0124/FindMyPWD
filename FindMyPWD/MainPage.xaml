@@ -12,6 +12,8 @@
             <Button x:Name ="Manage" Text="Manage Devices" Clicked="Handle_Clicked_Manage" />
             <Button x:Name="GeoFence" Text="Set Geo-Fencing Range" Clicked="Handle_Clicked_Range" />
             <Button x:Name ="MapButton" Text="Open Map" Clicked="Open_Map"/>
+            <Button x:Name ="CheckBLE" Text="Check BLE" Clicked="BLEConfig"/>
+            <Label x:Name="TempLbl"/>
         </StackLayout>
     </ContentPage.Content>
 

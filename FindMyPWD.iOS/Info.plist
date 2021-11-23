@@ -34,5 +34,7 @@
     <string>FindMyPWD</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>Privacy</key>
+	<string>Location Usage Description</string>
 </dict>
 </plist>
