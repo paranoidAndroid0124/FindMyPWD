@@ -12,6 +12,7 @@
             <Button x:Name="Device3" Text = "Device3" Clicked="Select"/>
             <Button x:Name="TemporaryDevice" Text="Temporary Device" Clicked="Select"/>
             <Label x:Name="TempLbl"/>
+            <Button x:Name="Scan" Text = "Scan" Clicked="ScanBLE"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

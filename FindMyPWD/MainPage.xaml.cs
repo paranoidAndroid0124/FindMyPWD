@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using static System.Math;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using FindMyPWD.Helper;
 
 namespace FindMyPLWD
 {
@@ -14,12 +15,18 @@ namespace FindMyPLWD
     {
 
         private CurrentDevicePage cdp;
-
+        private readonly BLEScanneHelper BLEHelper;
         public MainPage(CurrentDevicePage cdp)
         {
             this.cdp = cdp;
             InitializeComponent();
+            BLEHelper = new BLEScanneHelper();
+        }
 
+        public async void BLEConfig(object sender, System.EventArgs e)
+        {
+            string BLE = await BLEHelper.CheckBLE();
+            TempLbl.Text = BLE;
         }
 
         public async void Handle_Clicked_Connect(object sender, System.EventArgs e)
