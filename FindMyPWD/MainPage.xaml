@@ -13,6 +13,7 @@
             <Button x:Name="GeoFence" Text="Set Geo-Fencing Range" Clicked="Handle_Clicked_Range" />
             <Button x:Name ="MapButton" Text="Open Map" Clicked="Open_Map"/>
             <Button x:Name ="CheckBLE" Text="Check BLE" Clicked="BLEConfig"/>
+            <Button x:Name ="CheckDB" Text="Check DB" Clicked="DB_Reading"/>
             <Label x:Name="TempLbl"/>
         </StackLayout>
     </ContentPage.Content>

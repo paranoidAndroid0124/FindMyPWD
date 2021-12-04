@@ -23,12 +23,6 @@ namespace FindMyPLWD
             BLEHelper = new BLEScanneHelper();
         }
 
-        public async void BLEConfig(object sender, System.EventArgs e)
-        {
-            string BLE = await BLEHelper.CheckBLE();
-            TempLbl.Text = BLE;
-        }
-
         public async void Handle_Clicked_Connect(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.ConnectPage()));
@@ -53,6 +47,18 @@ namespace FindMyPLWD
             });
             checkLocation();
             //start making sure device is in range as soon as the map opens
+        }
+        public async void BLEConfig(object sender, System.EventArgs e)
+        {
+            string BLE = await BLEHelper.CheckBLE();
+            TempLbl.Text = BLE;
+        }
+
+        public async void DB_Reading(object sender, EventArgs e) 
+        {
+            dbConnnection.GetDB(); 
+            var db = dbConnnection.List;
+            TempLbl.Text = db.Count().ToString();
         }
         public async void checkLocation()
         {
