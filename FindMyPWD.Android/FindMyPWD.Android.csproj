@@ -85,13 +85,8 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AndroidServiceHelper.cs" />
-    <Compile Include="BackGroundReceiver.cs" />
-    <Compile Include="BLEScannerAlarmHandler.cs" />
-    <Compile Include="INotification.cs" />
+    <Compile Include="StartServiceAndroid.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="MainApplication.cs" />
-    <Compile Include="PeriodicService.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

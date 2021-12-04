@@ -4,8 +4,8 @@ using System.Text;
 
 namespace FindMyPWD.Interface
 {
-    public interface INotification
+    public interface IStartService
     {
-        Notification ReturnNotif();
+        void StartForegroundServiceCompat();
     }
 }
