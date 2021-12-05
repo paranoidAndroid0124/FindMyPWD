@@ -18,10 +18,11 @@ namespace FindMyPWD.Helper
             List = new ObservableCollection<DB_data>();
             using (SqlConnection con = new SqlConnection(stringConnection))
             {
-                con.Open();
                 using (SqlCommand command = new SqlCommand(sqlQuery, con))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = @"SELECT [clocktime], [location], [device] FROM PWD";
+                    con.Open();
+
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
