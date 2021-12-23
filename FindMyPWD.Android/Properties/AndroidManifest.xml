@@ -3,6 +3,7 @@
     <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
     <application android:label="FindMyPWD.Android"></application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- this allows for checking internet connect -->
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/> <!-- fully this allows the "background scanning" -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />

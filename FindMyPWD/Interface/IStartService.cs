@@ -6,6 +6,6 @@ namespace FindMyPWD.Interface
 {
     public interface IStartService
     {
-        void StartForegroundServiceCompat();
+        void StartForegroundServiceCompat(); //TODO: probably here to fix the scanning issue
     }
 }

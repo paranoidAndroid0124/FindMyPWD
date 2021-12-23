@@ -39,13 +39,13 @@ namespace FindMyPWD.Droid
 
             //call method to start service, you can put this line everywhere you want to get start
             scanService = DependencyService.Get<IStartService>();
-            scanService.StartForegroundServiceCompat(); //disable for now and check if the app still runs
+            scanService.StartForegroundServiceCompat();
             //need to create a notification channel here????
 
             LoadApplication(new App(completePath));
         }
 
-        protected override void OnStart() //this is onStartCommand in java ?
+        protected override void OnStart()
         {
             base.OnStart();
 
