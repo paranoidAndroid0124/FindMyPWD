@@ -14,8 +14,7 @@ using System.Collections.ObjectModel;
 using FindMyPWD.Droid.Interface;
 using AndroidX.Core.App;
 
-//[assembly: Dependency(typeof(StartServiceAndroid))] //this registers the service
-//[assembly: Xamarin.Forms.Dependency(typeof(IStartService))]
+
 [assembly: Xamarin.Forms.Dependency(typeof(NotificationHelper))]
 [assembly: Xamarin.Forms.Dependency(typeof(AndroidServiceHelper))]
 
@@ -145,51 +144,4 @@ namespace FindMyPWD.Droid
 
 
     }
-
-    /*
-    [Service]
-    public class scaniningService : Service
-    {
-        private BLEScanneHelper BLEHelper;
-        ObservableCollection<IDevice> BLEscan = new ObservableCollection<IDevice>();
-
-        public override IBinder OnBind(Intent intent)
-        {
-            //var binder = base.OnBind(intent);
-            StopForeground(true);
-            return null;
-        }
-
-        public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
-        {
-            // Code not directly related to publishing the notification has been omitted for clarity.
-            // Normally, this method would hold the code to be run when the service is started.
-
-            //Write want you want to do here
-            if (intent == null)
-            {
-                return StartCommandResult.StickyCompatibility;
-    }
-            else
-            {
-                _ = MainActivity.Instance.StartForegroundService(intent);
-            }
-
-            scan();
-
-            return StartCommandResult.Sticky; //tells the os to restart the service once there is enough ram available
-        }
-
-        private async void scan()
-        {
-            BLEHelper = new BLEScanneHelper();
-            BLEscan = await BLEHelper.ScanBLE();
-            checkPaired(BLEscan);
-        }
-
-        private bool checkPaired(ObservableCollection<IDevice> device)
-        {
-            throw new NotImplementedException();
-        }
-    }*/
 }

@@ -38,11 +38,7 @@ namespace FindMyPWD.Droid
             string completePath = Path.Combine(folderPath, fileName);
 
 
-            //call method to start service, you can put this line everywhere you want to get start
-            //scanService = DependencyService.Get<StartServiceAndroid>();
-            //scanService.StartForegroundServiceCompat();
-            //need to create a notification channel here????
-
+            //call method to start service
             DependencyService.Get<IAndroidService>().StartService();
 
             LoadApplication(new App(completePath));
@@ -52,8 +48,6 @@ namespace FindMyPWD.Droid
         {
             base.OnStart();
 
-            //scanService = DependencyService.Get<IStartService>();
-            //scanService.StartForegroundServiceCompat();
         }
 
         //This function allows to prompt the user for permission
