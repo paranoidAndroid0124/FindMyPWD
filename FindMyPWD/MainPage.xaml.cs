@@ -8,6 +8,7 @@ using static System.Math;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using FindMyPWD.Helper;
+using FindMyPWD.Interface;
 
 namespace FindMyPLWD
 {
