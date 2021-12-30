@@ -64,6 +64,7 @@ namespace FindMyPWD.Droid
         }
     }
 
+    /*implementation of the shared code*/
     internal class AndroidServiceHelper : IAndroidService
     {
         private static Context context = global::Android.App.Application.Context;
@@ -89,19 +90,20 @@ namespace FindMyPWD.Droid
         }
     }
 
+    /*Registers a foreground service with android and scan BLE*/
     [Service]
-    public class DataSource : Service
+    public class DataSource : Service //overide the android service class
     {
         private BLEScanneHelper BLEHelper;
         ObservableCollection<IDevice> BLEscan = new ObservableCollection<IDevice>();
+        public const int ServiceRunningNotifID = 9000; //process id of the service
 
         public override IBinder OnBind(Intent intent)
         {
             return null;
         }
 
-        public const int ServiceRunningNotifID = 9000;
-
+        //Start the foreground service
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
             Notification notif = DependencyService.Get<INotification>().ReturnNotif();
@@ -120,6 +122,7 @@ namespace FindMyPWD.Droid
 
             return StartCommandResult.Sticky;
         }
+        //scanning code
         private async void scan()
         {
             BLEHelper = new BLEScanneHelper();
@@ -137,6 +140,7 @@ namespace FindMyPWD.Droid
             base.OnDestroy();
         }
 
+        //code to stop the service (currently not in used)
         public override bool StopService(Intent name)
         {
             return base.StopService(name);
