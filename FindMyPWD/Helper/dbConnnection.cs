@@ -1,10 +1,8 @@
 ﻿using FindMyPWD.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace FindMyPWD.Helper
 {
@@ -12,9 +10,11 @@ namespace FindMyPWD.Helper
     {
         public static ObservableCollection<DB_data> List { get; set; }
         private const string stringConnection = @"Server=tcp:findmypwd-server.database.windows.net,1433;Initial Catalog=FindMyPWD_DB;Persist Security Info=False;User ID=paranoidAndroid;Password=7TyLM2EGw9sSyff;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        private const string sqlQuery = "READ_DATA";
+        private const string sqlQuery = null;
+        /*This function is to read from the database*/
         public static void GetDB()
         {
+            string sqlQuery = "READ_DATA";
             List = new ObservableCollection<DB_data>();
             using (SqlConnection con = new SqlConnection(stringConnection))
             {
@@ -38,6 +38,45 @@ namespace FindMyPWD.Helper
                     }
                 }
             }
+        }
+        /*This function will add the seen device as a entry to the database*/
+        public static bool WriteDB(string clocktime, string location, string device) 
+        {
+            string sqlQuery = "insert into Main ([clocktime], [location], [device]) values(@clock,@loc,@device)"; //double check the values
+            using (SqlConnection cnn = new SqlConnection(stringConnection))
+            {
+                try
+                {
+                    // Open the connection to the database. 
+                    // This is the first critical step in the process.
+                    // If we cannot reach the db then we have connectivity problems
+                    cnn.Open();
+
+                    // Prepare the command to be executed on the db
+                    using (SqlCommand cmd = new SqlCommand(sqlQuery, cnn))
+                    {
+                        // Create and set the parameters values 
+                        cmd.Parameters.Add("@clock", SqlDbType.NVarChar).Value = clocktime;
+                        cmd.Parameters.Add("@loc", SqlDbType.NVarChar).Value = location;
+                        cmd.Parameters.Add("@device", SqlDbType.NVarChar).Value = device;
+
+                        // Let's ask the db to execute the query
+                        int rowsAdded = cmd.ExecuteNonQuery();
+                        if (rowsAdded > 0)
+                            Console.WriteLine("Row inserted!!");//the row was inserted
+                        else
+                            // Well this should never really happen
+                            Console.WriteLine("No row inserted");
+
+                    }
+                    return true; //it worked
+                }
+                catch (Exception ex)
+                {
+                    return false; //it failed
+                }
+            }
+            
         }
     }
 }

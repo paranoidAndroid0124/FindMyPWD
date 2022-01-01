@@ -4,12 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FindMyPWD.Interface;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using Xamarin.Forms;
 
 namespace FindMyPWD.Helper
 {
@@ -55,7 +53,7 @@ namespace FindMyPWD.Helper
             return result;
         }
 
-        public async Task<ObservableCollection<IDevice>> ScanBLE(object sender, System.EventArgs e)
+        public async Task<ObservableCollection<IDevice>> ScanBLE() //when the sender is not need just as the automatic scanning
         {
             await CheckLocPer();
             if (BLEStatus() && perStatus == PermissionStatus.Granted) //check if scanning is possible
@@ -66,7 +64,8 @@ namespace FindMyPWD.Helper
             }
             return null;
         }
-        public async Task<ObservableCollection<IDevice>> ScanBLE()
+
+        public async Task<ObservableCollection<IDevice>> ScanBLE(object sender, System.EventArgs e) //might delete this one
         {
             await CheckLocPer();
             if (BLEStatus() && perStatus == PermissionStatus.Granted) //check if scanning is possible

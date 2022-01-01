@@ -109,8 +109,7 @@ namespace FindMyPLWD
 
             using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
             {
-                conn.CreateTable<BLEDevice>();
-                //conn.Insert(pairedDevice);
+                conn.CreateTable<BLEDevice>(); //it will only create a table if it doesn't exist
                 int rowsAdded = conn.Insert(bLEDevice);
             }
             

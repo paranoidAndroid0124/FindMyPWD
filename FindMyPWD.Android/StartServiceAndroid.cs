@@ -13,7 +13,8 @@ using FindMyPLWD;
 using System.Collections.ObjectModel;
 using FindMyPWD.Droid.Interface;
 using AndroidX.Core.App;
-
+using System.Linq;
+using System.Collections.Generic;
 
 [assembly: Xamarin.Forms.Dependency(typeof(NotificationHelper))]
 [assembly: Xamarin.Forms.Dependency(typeof(AndroidServiceHelper))]
@@ -125,14 +126,27 @@ namespace FindMyPWD.Droid
         //scanning code
         private async void scan()
         {
+            List<IDevice> devices;
             BLEHelper = new BLEScanneHelper();
             BLEscan = await BLEHelper.ScanBLE();
-            //checkPaired(BLEscan); //TODO: fix this feature
+            devices = checkPaired(BLEscan); //returns all paired devices found during the scan
+            //TODO: update the sql db saying you found a pair device aka the watch
         }
 
-        private bool checkPaired(ObservableCollection<IDevice> device)
+        private List<IDevice> checkPaired(ObservableCollection<IDevice> devices)
         {
-            throw new NotImplementedException();
+            List<BLEDevice> results;
+            //Read the sqlite db to know which devices are paired
+            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+            {
+                results = conn.Table<BLEDevice>().ToList();
+                
+            }
+            return devices.Where(device =>
+            {
+                var match = results.Select( x => x._name == device.Name);
+                return match != null;
+            }).ToList();
         }
 
         public override void OnDestroy()
