@@ -24,7 +24,7 @@ namespace FindMyPLWD
             BLEHelper = new BLEScanneHelper();
         }
 
-        public async void Handle_Clicked_Connect(object sender, System.EventArgs e)
+        public async void Handle_Clicked_Pair(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.ConnectPage()));
         }

@@ -17,7 +17,7 @@ namespace FindMyPLWD
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SetUpPage : ContentPage
     {
-        private CurrentDevicePage _cdp;
+        //private CurrentDevicePage _cdp;
         ObservableCollection<IDevice> BLEscan;
         private readonly BLEScanneHelper BLEHelper;
         ObservableCollection<String> BLEDevices = new ObservableCollection<String>();
@@ -26,52 +26,14 @@ namespace FindMyPLWD
 
         public SetUpPage(CurrentDevicePage cdp)
         {
-            _cdp = cdp;
             InitializeComponent();
             BLEHelper = new BLEScanneHelper();
-            for (int i = 0; i < 3; i++) //why is this hard coded...do we even need this
-            {
-                if (_cdp.getData(i).getName() != null && _cdp.getData(i).getAddress() != null)
-                {
-                    if (i == 0)
-                    {
-                        ((Button)B1).IsVisible = false;
-                    }
-                    else if (i == 1)
-                    {
-                        ((Button)B2).IsVisible = false;
-                    }
-                    else
-                    {
-                        ((Button)B3).IsVisible = false;
-                    }
-                    //checks if the device is available to be setup
-                }
-            }
-
-            //connect from front end of the list
             DeviceView.ItemsSource = BLEDevicesCollection;
-        }
-        public async void Dev_select(object sender, System.EventArgs e)
-        {
-            if (((Button)sender).Text == "Device 1")
-            {
-                await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.AddDevice(_cdp, 0)));
-            }
-            else if (((Button)sender).Text == "Device 2")
-            {
-                await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.AddDevice(_cdp, 1)));
-            }
-            else if (((Button)sender).Text == "Device 3")
-            {
-                await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.AddDevice(_cdp, 2)));
-            }
-
         }
 
         async void Pairing_Clicked(object sender, EventArgs e)
         {
-           BLEscan = await BLEHelper.ScanBLE(sender, e);
+            BLEscan = await BLEHelper.ScanBLE();
 
             for (int i = 0; i < BLEscan.Count(); i++) 
             {
@@ -106,12 +68,14 @@ namespace FindMyPLWD
         void savePairedDevice(IDevice pairedDevice) 
         {
             BLEDevice bLEDevice = new BLEDevice(pairedDevice.Name, pairedDevice.Id.ToString());
-
+            Console.WriteLine("DB file path:" + App.FilePath);
             using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
             {
                 conn.CreateTable<BLEDevice>(); //it will only create a table if it doesn't exist
                 int rowsAdded = conn.Insert(bLEDevice);
+                Console.WriteLine("Row added in paired db:" + rowsAdded);//just for testing purposes
             }
+            PairedDevice.Text = pairedDevice.Name; //just for testing purposes...this seems to run much later
             
         }
 

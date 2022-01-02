@@ -25,7 +25,8 @@ namespace FindMyPLWD
 
         async void ScanBLE(object sender, System.EventArgs e) 
         {
-            var test = await BLEHelper.ScanBLE(sender, e);
+            //var test = await BLEHelper.ScanBLE(sender, e);
+            var test = await BLEHelper.ScanBLE();
             TempLbl.Text = test.ToString();
         }
 

@@ -114,12 +114,25 @@ namespace FindMyPWD.Droid
             {
                 return StartCommandResult.StickyCompatibility;
             }
+            else if(intent.Action == "STOPFOREGROUND_ACTION") //kill service if the user demands it
+            {
+                //TODO: fix the stopping of the service (it might be the condition above)
+                StopService(intent);
+                return StartCommandResult.StickyCompatibility;
+            }
             else
             {
                 _ = MainActivity.Instance.StartForegroundService(intent);
             }
 
-            scan();
+            //making the scan scanning periodic
+            var startTimeSpan = TimeSpan.Zero; //move the variable to top of the function before pr
+            var periodTimeSpan = TimeSpan.FromSeconds(300); //5 minutes between automatic scans
+
+            var timer = new System.Threading.Timer((e) =>
+            {
+                scan();
+            }, null, startTimeSpan, periodTimeSpan);
 
             return StartCommandResult.Sticky;
         }
@@ -129,8 +142,20 @@ namespace FindMyPWD.Droid
             List<IDevice> devices;
             BLEHelper = new BLEScanneHelper();
             BLEscan = await BLEHelper.ScanBLE();
+            if (BLEscan.Count > 0) //delete this after testing
+            {
+                Console.WriteLine("BLEScan:" + BLEscan.Count());
+            }          
             devices = checkPaired(BLEscan); //returns all paired devices found during the scan
             //TODO: update the sql db saying you found a pair device aka the watch
+            if (devices.Count > 0)
+            {
+                Console.WriteLine("found paired device: " + devices.First().ToString());
+            }
+            else 
+            {
+                Console.WriteLine("No paired device found");
+            }
         }
 
         private List<IDevice> checkPaired(ObservableCollection<IDevice> devices)
@@ -139,8 +164,16 @@ namespace FindMyPWD.Droid
             //Read the sqlite db to know which devices are paired
             using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
             {
-                results = conn.Table<BLEDevice>().ToList();
-                
+                //check if table exist...TODO: test if this works
+                if (conn.TableMappings.Count() > 0) //might be better to check for the exact table
+                {
+                    results = conn.Table<BLEDevice>().ToList();//return paired devices
+                }
+                else 
+                {
+                    //there is no paired devices
+                    return new List<IDevice>(); //return an empty list
+                }
             }
             return devices.Where(device =>
             {
