@@ -14,6 +14,7 @@
             <Button x:Name ="MapButton" Text="Open Map" Clicked="Open_Map"/>
             <Button x:Name ="CheckBLE" Text="Check BLE" Clicked="BLEConfig"/>
             <Button x:Name ="CheckDB" Text="Check DB" Clicked="DB_Reading"/>
+            <Button x:Name ="ResetSQLite" Text="reset sqlite" Clicked="resetSqlite"/>
             <Label x:Name="TempLbl"/>
         </StackLayout>
     </ContentPage.Content>

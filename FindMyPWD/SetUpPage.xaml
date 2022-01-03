@@ -7,9 +7,9 @@
             <Frame BackgroundColor="CadetBlue" Padding="24" CornerRadius="0">
                 <Label Text="Choose a Device to Set Up" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
-            <Label x:Name="PairedDevice"/>
+            <Label x:Name="PairedDevice" Text ="Paired Device label"/>
             <Button x:Name= "Pairing" Text="Pair new device" Clicked="Pairing_Clicked"/>
-            <Label x:Name="TempLbl"/>
+            <Label x:Name="TempLbl" Text ="temp label"/>
             <ListView x:Name="DeviceView" ItemsSource="{Binding BLEDevicesCollection}" ItemSelected="OnSelectedItem">
             </ListView>
         </StackLayout>

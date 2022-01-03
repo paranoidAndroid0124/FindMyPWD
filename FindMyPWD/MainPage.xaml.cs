@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -9,6 +8,9 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using FindMyPWD.Helper;
 using FindMyPWD.Interface;
+using SQLite;
+using FindMyPWD.Model;
+using System;
 
 namespace FindMyPLWD
 {
@@ -26,7 +28,7 @@ namespace FindMyPLWD
 
         public async void Handle_Clicked_Pair(object sender, System.EventArgs e)
         {
-            await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.ConnectPage()));
+            await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.ViewPairedDevices()));
         }
         public async void Handle_Clicked_Set_Up(object sender, System.EventArgs e)
         {
@@ -60,6 +62,25 @@ namespace FindMyPLWD
             dbConnnection.GetDB(); 
             var db = dbConnnection.List;
             TempLbl.Text = db.Count().ToString();
+        }
+        public void resetSqlite(object sender, EventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+            {
+                try
+                {
+                    if (conn.Execute("SELECT * FROM sqlite_master WHERE type = 'table';").ToString() != "0") //check if any table exist
+                    {
+                        conn.DropTable<BLEDevice>(); //drop(remove) the table
+                    }
+                }
+                catch (Exception) 
+                {
+                    //do nothing
+                }
+                
+
+            }
         }
         public async void checkLocation()
         {
