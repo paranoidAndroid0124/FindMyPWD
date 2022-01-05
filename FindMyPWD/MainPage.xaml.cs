@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using static System.Math;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using FindMyPWD.Helper;
-using FindMyPWD.Interface;
 using SQLite;
 using FindMyPWD.Model;
 using System;

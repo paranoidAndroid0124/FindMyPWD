@@ -1,18 +1,12 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using FindMyPLWD;
 using System.IO;
 using Android.Content;
 using Xamarin.Forms;
 using FindMyPWD.Interface;
-using Plugin.Permissions;
-using FindMyPWD.Helper;
 
 namespace FindMyPWD.Droid
 {

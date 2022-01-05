@@ -1,12 +1,10 @@
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using FindMyPWD.Helper;
 using System.Collections.ObjectModel;
 using FindMyPWD.Model;
 using System.Collections.Generic;
 using SQLite;
-using Plugin.BLE.Abstractions.Contracts;
 using System.Linq;
 
 namespace FindMyPLWD
@@ -14,7 +12,6 @@ namespace FindMyPLWD
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewPairedDevices : ContentPage
     {
-        private readonly BLEScanneHelper BLEHelper;
         ObservableCollection<String> BLEDevices = new ObservableCollection<String>();
         public ObservableCollection<String> BLEDevicesCollection { get { return BLEDevices; } }
 

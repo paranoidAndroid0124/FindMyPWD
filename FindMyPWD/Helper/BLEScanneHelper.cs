@@ -12,7 +12,6 @@ namespace FindMyPWD.Helper
         public IBluetoothLE ble;
         IAdapter adapter;
         ObservableCollection<IDevice> deviceList;
-        IDevice device;
         PermissionStatus perStatus;
         public BLEScanneHelper()
         {
