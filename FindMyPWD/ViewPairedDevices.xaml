@@ -8,6 +8,7 @@
                 <Label Text = "Devices" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
             <Label x:Name="PairedLbl" Text="Your paired Devices:"/>
+            <Button x:Name="RefreshBtn" Text="Refresh" Clicked="refreshListView"/>
             <ListView x:Name="DeviceView" ItemsSource="{Binding BLEDevicesCollection}" ItemSelected="OnSelectedItem">
             </ListView>
         </StackLayout>

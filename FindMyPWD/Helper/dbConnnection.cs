@@ -74,7 +74,7 @@ namespace FindMyPWD.Helper
                     }
                     return true; //it worked
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return false; //it failed
                 }

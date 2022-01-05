@@ -53,7 +53,7 @@ namespace FindMyPLWD
             TempLbl.Text = BLE;
         }
 
-        public async void DB_Reading(object sender, EventArgs e) 
+        public void DB_Reading(object sender, EventArgs e) 
         {
             DBConnnection.GetDB(); 
             var db = DBConnnection.List;

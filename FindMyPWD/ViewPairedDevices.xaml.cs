@@ -14,12 +14,12 @@ namespace FindMyPLWD
     public partial class ViewPairedDevices : ContentPage
     {
         ObservableCollection<String> BLEDevices = new ObservableCollection<String>();
-        public ObservableCollection<String> BLEDevicesCollection { get { return BLEDevices; } }
+        public ObservableCollection<String> BLEDevicesCollection { get { return BLEDevices; } } //this is binded to the viewlist
 
         public ViewPairedDevices()
         {
             InitializeComponent();
-            AddDevicesToListview();
+            updateViewList();
             DeviceView.ItemsSource = BLEDevicesCollection;
         }
 
@@ -28,15 +28,24 @@ namespace FindMyPLWD
         {
             //add code to allow the user to delete a paired device
         }
-
-        void AddDevicesToListview()
+        void refreshListView(object sender, EventArgs e)
         {
-            //read the local sqlite db
-            var results = localDBConnnection.getPairedDevice();
-            foreach (BLEDevice PairedDevice in results) 
-            {
-                BLEDevices.Add(PairedDevice._name);
-            }
+            updateViewList();
         }
+
+        void updateViewList() 
+        {
+            List<BLEDevice> PairedDevice = localDBConnnection.getPairedDevice(); //read the local sqlite db
+            foreach (BLEDevice Device in PairedDevice) 
+            {
+                if (!BLEDevices.Contains(Device._name.ToString())) //if the device is already in the list don't add it
+                {
+                    BLEDevices.Add(Device._name);
+                }
+            }
+            //TODO: remove device that were deleted in sqlite
+            //maybe there is a way to do it with binding ?
+        }
+
     }
 }
