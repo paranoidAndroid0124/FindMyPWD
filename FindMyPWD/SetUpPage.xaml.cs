@@ -6,7 +6,6 @@ using FindMyPWD.Helper;
 using FindMyPWD.Model;
 using System.Collections.ObjectModel;
 using Plugin.BLE.Abstractions.Contracts;
-using SQLite;
 
 namespace FindMyPLWD
 {
@@ -64,15 +63,7 @@ namespace FindMyPLWD
         void savePairedDevice(IDevice pairedDevice) 
         {
             BLEDevice bLEDevice = new BLEDevice(pairedDevice.Name, pairedDevice.Id.ToString());
-            Console.WriteLine("DB file path:" + App.FilePath);
-            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-            {
-                conn.CreateTable<BLEDevice>(); //it will only create a table if it doesn't exist
-                int rowsAdded = conn.Insert(bLEDevice);
-                Console.WriteLine("Row added in paired db:" + rowsAdded);//just for testing purposes
-            }
-            PairedDevice.Text = pairedDevice.Name; //just for testing purposes...this seems to run much later
-            
+            localDBConnnection.write(bLEDevice);            
         }
 
     }

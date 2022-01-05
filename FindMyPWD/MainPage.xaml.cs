@@ -55,8 +55,8 @@ namespace FindMyPLWD
 
         public async void DB_Reading(object sender, EventArgs e) 
         {
-            dbConnnection.GetDB(); 
-            var db = dbConnnection.List;
+            DBConnnection.GetDB(); 
+            var db = DBConnnection.List;
             TempLbl.Text = db.Count().ToString();
         }
         public void resetSqlite(object sender, EventArgs e)

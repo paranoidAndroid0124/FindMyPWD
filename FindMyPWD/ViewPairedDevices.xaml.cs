@@ -6,6 +6,7 @@ using FindMyPWD.Model;
 using System.Collections.Generic;
 using SQLite;
 using System.Linq;
+using FindMyPWD.Helper;
 
 namespace FindMyPLWD
 {
@@ -28,20 +29,10 @@ namespace FindMyPLWD
             //add code to allow the user to delete a paired device
         }
 
-        //there is very similiar code in StartServiceAndroid.cs....maybe put both in a helper class
         void AddDevicesToListview()
         {
             //read the local sqlite db
-            List<BLEDevice> results = new List<BLEDevice>();
-            //Read the sqlite db to know which devices are paired
-            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-            {
-                //check if table exist...TODO: test if this works
-                if (conn.TableMappings.Count() > 0) //might be better to check for the exact table
-                {
-                    results = conn.Table<BLEDevice>().ToList();//return paired devices
-                }
-            }
+            var results = localDBConnnection.getPairedDevice();
             foreach (BLEDevice PairedDevice in results) 
             {
                 BLEDevices.Add(PairedDevice._name);

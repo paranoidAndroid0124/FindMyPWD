@@ -1,14 +1,19 @@
-﻿using FindMyPWD.Model;
+﻿using FindMyPLWD;
+using FindMyPWD.Model;
+using SQLite;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace FindMyPWD.Helper
 {
-    public class dbConnnection
+    public class DBConnnection
     {
         public static ObservableCollection<DB_data> List { get; set; }
+        //connection string is a security risk. Remove and use a azure function before release into production
         private const string stringConnection = @"Server=tcp:findmypwd-server.database.windows.net,1433;Initial Catalog=FindMyPWD_DB;Persist Security Info=False;User ID=paranoidAndroid;Password=7TyLM2EGw9sSyff;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         private const string sqlQuery = null;
         /*This function is to read from the database*/
@@ -48,8 +53,6 @@ namespace FindMyPWD.Helper
                 try
                 {
                     // Open the connection to the database. 
-                    // This is the first critical step in the process.
-                    // If we cannot reach the db then we have connectivity problems
                     cnn.Open();
 
                     // Prepare the command to be executed on the db
@@ -75,8 +78,43 @@ namespace FindMyPWD.Helper
                 {
                     return false; //it failed
                 }
+            }   
+        }
+    }
+    public static class localDBConnnection //this is local sqlite db to store settings
+    {
+        public static List<BLEDevice> getPairedDevice()
+        {
+            List<BLEDevice> results = new List<BLEDevice>();
+            //Read the sqlite db to know which devices are paired
+            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+            {
+                //check if table exist
+                if (conn.TableMappings.Count() > 0) //might be better to check for the exact table
+                {
+                    results = conn.Table<BLEDevice>().ToList();
+                }
             }
-            
+            return results; //return paired devices
+        }
+
+        public static void write(BLEDevice device)
+        {
+            if (!alreadyExist(device)) 
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                {
+                    conn.CreateTable<BLEDevice>(); //it will only create a table if it doesn't exist
+                    int rowsAdded = conn.Insert(device); //no need to keep the rowsadded
+                }
+            }
+        }
+
+        //Return true if the device is already in the database
+        private static bool alreadyExist(BLEDevice device) 
+        {
+            List<BLEDevice> pairedDevices = getPairedDevice();
+            return pairedDevices.Any(x => x._name.ToString() == device._name);
         }
     }
 }
