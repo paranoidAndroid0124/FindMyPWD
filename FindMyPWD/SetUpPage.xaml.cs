@@ -15,8 +15,8 @@ namespace FindMyPLWD
         //private CurrentDevicePage _cdp;
         ObservableCollection<IDevice> BLEscan;
         private readonly BLEScanneHelper BLEHelper;
-        ObservableCollection<String> BLEDevices = new ObservableCollection<String>();
-        public ObservableCollection<String> BLEDevicesCollection { get { return BLEDevices; } }
+        ObservableCollection<IDevice> BLEDevices = new ObservableCollection<IDevice>();
+        public ObservableCollection<IDevice> BLEDevicesCollection { get { return BLEDevices; } }
         private IDevice pairedDevice;
 
         public SetUpPage(CurrentDevicePage cdp)
@@ -34,7 +34,7 @@ namespace FindMyPLWD
             {
                 if (BLEscan[i].Name != null)
                 {
-                    BLEDevices.Add(BLEscan[i].Name);
+                    BLEDevices.Add(BLEscan[i]);
                 }
             }
 

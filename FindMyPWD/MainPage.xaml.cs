@@ -7,6 +7,8 @@ using FindMyPWD.Helper;
 using SQLite;
 using FindMyPWD.Model;
 using System;
+using System.IO;
+using System.Collections.Generic;
 
 namespace FindMyPLWD
 {
@@ -65,10 +67,15 @@ namespace FindMyPLWD
             {
                 try
                 {
-                    if (conn.Execute("SELECT * FROM sqlite_master WHERE type = 'table';").ToString() != "0") //check if any table exist
+                    if (File.Exists(App.FilePath)) //check if the db file exist
                     {
-                        conn.DropTable<BLEDevice>(); //drop(remove) the table
+                        List<BLEDevice> query = conn.Query<BLEDevice>("SELECT * FROM sqlite_master WHERE type='table'"); //get the tables
+                        if (query.Count > 0) //check if table exist
+                        {
+                            conn.DropTable<BLEDevice>(); //drop(remove) the table
+                        }
                     }
+                   
                 }
                 catch (Exception) 
                 {

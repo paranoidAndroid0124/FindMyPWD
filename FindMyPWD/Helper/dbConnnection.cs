@@ -94,6 +94,10 @@ namespace FindMyPWD.Helper
                 {
                     results = conn.Table<BLEDevice>().ToList();
                 }
+                else //table was not found so return an empty list
+                {
+                    return results;
+                }
             }
             return results; //return paired devices
         }

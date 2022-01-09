@@ -13,8 +13,18 @@ namespace FindMyPLWD
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewPairedDevices : ContentPage
     {
-        ObservableCollection<String> BLEDevices = new ObservableCollection<String>();
-        public ObservableCollection<String> BLEDevicesCollection { get { return BLEDevices; } } //this is binded to the viewlist
+        ObservableCollection<BLEDevice> BLEDevices = new ObservableCollection<BLEDevice>();
+        public ObservableCollection<string> BLEDevicesCollection { 
+            get 
+                {
+                    ObservableCollection<string> result = new ObservableCollection<string>();
+                    foreach (BLEDevice device in BLEDevices) 
+                    {
+                        result.Add(device._name);
+                    }
+                    return result;
+                }//this is binded to the viewlist
+        } 
 
         public ViewPairedDevices()
         {
@@ -33,18 +43,18 @@ namespace FindMyPLWD
             updateViewList();
         }
 
+        //Note: maybe there is a way to do it with binding ?
         void updateViewList() 
         {
             List<BLEDevice> PairedDevice = localDBConnnection.getPairedDevice(); //read the local sqlite db
+            BLEDevices = new ObservableCollection<BLEDevice>(); //delete everything ???
             foreach (BLEDevice Device in PairedDevice) 
             {
-                if (!BLEDevices.Contains(Device._name.ToString())) //if the device is already in the list don't add it
+                if (!BLEDevices.Contains(Device)) //if the device is already in the list don't add it
                 {
-                    BLEDevices.Add(Device._name);
+                    BLEDevices.Add(Device);
                 }
-            }
-            //TODO: remove device that were deleted in sqlite
-            //maybe there is a way to do it with binding ?
+            }            
         }
 
     }
