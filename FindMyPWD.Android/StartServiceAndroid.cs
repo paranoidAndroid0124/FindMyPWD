@@ -8,7 +8,6 @@ using System;
 using Xamarin.Forms;
 using FindMyPWD.Model;
 using Plugin.BLE.Abstractions.Contracts;
-using FindMyPLWD;
 using System.Collections.ObjectModel;
 using FindMyPWD.Droid.Interface;
 using AndroidX.Core.App;
@@ -127,12 +126,11 @@ namespace FindMyPWD.Droid
                 _ = MainActivity.Instance.StartForegroundService(intent);
             }
 
-            if (!scanning) 
+            if (!scanning) //check if the service is already started
             {
                 //making the scan scanning periodic
                 var startTimeSpan = TimeSpan.Zero; //move the variable to top of the function before pr
                 var periodTimeSpan = TimeSpan.FromSeconds(10); //10 sec between automatic scans
-                //var periodTimeSpan = TimeSpan.FromSeconds(300);
 
                 var timer = new System.Threading.Timer(async (e) => {
                     await scan();
@@ -175,8 +173,7 @@ namespace FindMyPWD.Droid
         private List<BLEDevice> checkPaired(ObservableCollection<IDevice> devices)
         {
             //Read the JSON file storing the pairedDevice
-            List<BLEDevice> paired = localDBConnnection.getPairedDevice();
-            //List<BLEDevice> paired = new List<BLEDevice>();
+            List<BLEDevice> paired = localStorage.getPairedDevice();
             List <BLEDevice> pairedList = new List<BLEDevice>();
             bool deviceFound = false;
 

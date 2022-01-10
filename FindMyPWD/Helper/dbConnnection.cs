@@ -83,13 +83,12 @@ namespace FindMyPWD.Helper
             }
         }
     }
-    public static class localDBConnnection //this is local sqlite db to store settings
+    public static class localStorage //this is locally stored Json file
     {
        
         public static List<BLEDevice> getPairedDevice()
         {
             //check if file exist
-            //if (File.Exists(App.FilePath) && (File.ReadAllBytes(App.FilePath).Length > 0)) //check if the db file exist and if there is something in it
             if (File.Exists(App.FilePath))
             {
                 var fd = File.OpenRead(App.FilePath);

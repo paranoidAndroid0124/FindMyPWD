@@ -1,5 +1,4 @@
 using System;
-using System.Text.Json;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,7 +6,6 @@ using FindMyPWD.Helper;
 using FindMyPWD.Model;
 using System.Collections.ObjectModel;
 using Plugin.BLE.Abstractions.Contracts;
-using System.Collections.Generic;
 
 namespace FindMyPLWD
 {
@@ -65,7 +63,7 @@ namespace FindMyPLWD
         void savePairedDevice(IDevice pairedDevice) 
         {
             BLEDevice bLEDevice = new BLEDevice(pairedDevice.Name, pairedDevice.Id.ToString());
-            localDBConnnection.write(bLEDevice);
+            localStorage.write(bLEDevice);
         }
 
     }

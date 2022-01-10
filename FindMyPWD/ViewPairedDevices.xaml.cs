@@ -4,7 +4,6 @@ using Xamarin.Forms.Xaml;
 using System.Collections.ObjectModel;
 using FindMyPWD.Model;
 using System.Collections.Generic;
-using System.Linq;
 using FindMyPWD.Helper;
 
 namespace FindMyPLWD
@@ -12,19 +11,6 @@ namespace FindMyPLWD
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewPairedDevices : ContentPage
     {
-        //ObservableCollection<BLEDevice> BLEDevices = new ObservableCollection<BLEDevice>();
-        /*
-        public ObservableCollection<string> BLEDevicesCollection { 
-            get 
-                {
-                    ObservableCollection<string> result = new ObservableCollection<string>();
-                    foreach (BLEDevice device in BLEDevices) 
-                    {
-                        result.Add(device._name);
-                    }
-                    return result;
-                }//this is binded to the viewlist
-        }*/
         ObservableCollection<string> BLEDevices = new ObservableCollection<string>();
         public ObservableCollection<string> BLEDevicesCollection
         {
@@ -51,10 +37,9 @@ namespace FindMyPLWD
             updateViewList();
         }
 
-        //Note: maybe there is a way to do it with binding ?
         void updateViewList() 
         {
-            List<BLEDevice> PairedDevice = localDBConnnection.getPairedDevice(); //read the Json file
+            List<BLEDevice> PairedDevice = localStorage.getPairedDevice(); //read the Json file
             foreach (BLEDevice Device in PairedDevice) 
             {
                 if (!BLEDevices.Contains(Device._name)) //if the device is already in the list don't add it
