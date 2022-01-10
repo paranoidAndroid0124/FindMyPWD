@@ -28,7 +28,7 @@ namespace FindMyPLWD
             DeviceView.ItemsSource = BLEDevicesCollection;
         }
 
-        async void Pairing_Clicked(object sender, EventArgs e)
+        async void Pairing_Clicked(object sender, EventArgs e) //why do I always need to click this twice to work 
         {
             BLEscan = await BLEHelper.ScanBLE();
 

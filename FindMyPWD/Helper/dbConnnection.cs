@@ -107,16 +107,25 @@ namespace FindMyPWD.Helper
 
         public static void write(BLEDevice device) 
         {
-            if (!App.FilePath.Contains(device._name)) //if it does not contain the device then add it 
+            if (!File.Exists(App.FilePath)) //if the file doesn't exist than create it
             {
-                var fd = File.OpenRead(App.FilePath);
-                List<BLEDevice> results = JsonSerializer.Deserialize<List<BLEDevice>>(fd);
-                fd.Close();
-                results.Add(device);
-                string jsonString = JsonSerializer.Serialize<List<BLEDevice>>(results);
-                File.WriteAllText(App.FilePath, jsonString);
+                createNewJson();
             }
+            var fd = File.OpenRead(App.FilePath);
+            List<BLEDevice> results = JsonSerializer.Deserialize<List<BLEDevice>>(fd);
+            fd.Close();
+            results.Add(device);
+            string jsonString = JsonSerializer.Serialize<List<BLEDevice>>(results);
+            File.WriteAllText(App.FilePath, jsonString);
         }
 
+        public static void createNewJson() 
+        {
+            
+            var fd = File.Create(App.FilePath);
+            fd.Close();
+            string jsonString = JsonSerializer.Serialize<List<BLEDevice>>(new List<BLEDevice>());
+            File.WriteAllText(App.FilePath, jsonString);
+        }
     }
 }

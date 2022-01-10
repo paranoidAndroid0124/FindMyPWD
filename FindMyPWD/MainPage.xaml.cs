@@ -61,7 +61,7 @@ namespace FindMyPLWD
             var db = DBConnnection.List;
             TempLbl.Text = db.Count().ToString();
         }
-        public void resetSqlite(object sender, EventArgs e)
+        public void resetJson(object sender, EventArgs e)
         {
             StreamWriter strm = File.CreateText(App.FilePath);
             strm.Flush();

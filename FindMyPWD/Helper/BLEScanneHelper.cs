@@ -48,7 +48,7 @@ namespace FindMyPWD.Helper
             return result;
         }
 
-        public async Task<ObservableCollection<IDevice>> ScanBLE() //when the sender is not need just as the automatic scanning
+        public async Task<ObservableCollection<IDevice>> ScanBLE()
         {
             await CheckLocPer();
             if (BLEStatus() && perStatus == PermissionStatus.Granted) //check if scanning is possible
