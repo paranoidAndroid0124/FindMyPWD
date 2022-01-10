@@ -8,7 +8,6 @@ using System;
 using Xamarin.Forms;
 using FindMyPWD.Model;
 using Plugin.BLE.Abstractions.Contracts;
-using SQLite;
 using FindMyPLWD;
 using System.Collections.ObjectModel;
 using FindMyPWD.Droid.Interface;
@@ -160,21 +159,9 @@ namespace FindMyPWD.Droid
 
         private List<IDevice> checkPaired(ObservableCollection<IDevice> devices)
         {
-            List<BLEDevice> results;
-            //Read the sqlite db to know which devices are paired
-            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-            {
-                //check if table exist...TODO: test if this works
-                if (conn.TableMappings.Count() > 0) //might be better to check for the exact table
-                {
-                    results = conn.Table<BLEDevice>().ToList();//return paired devices
-                }
-                else 
-                {
-                    //there is no paired devices
-                    return new List<IDevice>(); //return an empty list
-                }
-            }
+            List<BLEDevice> results = new List<BLEDevice>(); //need this? 
+            //Read the JSON file storing the pairedDevice
+            
             return devices.Where(device =>
             {
                 var match = results.Select( x => x._name == device.Name);

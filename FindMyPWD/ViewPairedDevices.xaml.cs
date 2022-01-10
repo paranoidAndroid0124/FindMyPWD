@@ -4,7 +4,6 @@ using Xamarin.Forms.Xaml;
 using System.Collections.ObjectModel;
 using FindMyPWD.Model;
 using System.Collections.Generic;
-using SQLite;
 using System.Linq;
 using FindMyPWD.Helper;
 
@@ -13,7 +12,8 @@ namespace FindMyPLWD
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewPairedDevices : ContentPage
     {
-        ObservableCollection<BLEDevice> BLEDevices = new ObservableCollection<BLEDevice>();
+        //ObservableCollection<BLEDevice> BLEDevices = new ObservableCollection<BLEDevice>();
+        /*
         public ObservableCollection<string> BLEDevicesCollection { 
             get 
                 {
@@ -24,7 +24,15 @@ namespace FindMyPLWD
                     }
                     return result;
                 }//this is binded to the viewlist
-        } 
+        }*/
+        ObservableCollection<string> BLEDevices = new ObservableCollection<string>();
+        public ObservableCollection<string> BLEDevicesCollection
+        {
+            get
+            {
+                return BLEDevices;
+            }//this is binded to the viewlist
+        }
 
         public ViewPairedDevices()
         {
@@ -46,13 +54,12 @@ namespace FindMyPLWD
         //Note: maybe there is a way to do it with binding ?
         void updateViewList() 
         {
-            List<BLEDevice> PairedDevice = localDBConnnection.getPairedDevice(); //read the local sqlite db
-            BLEDevices = new ObservableCollection<BLEDevice>(); //delete everything ???
+            List<BLEDevice> PairedDevice = localDBConnnection.getPairedDevice(); //read the Json file
             foreach (BLEDevice Device in PairedDevice) 
             {
-                if (!BLEDevices.Contains(Device)) //if the device is already in the list don't add it
+                if (!BLEDevices.Contains(Device._name)) //if the device is already in the list don't add it
                 {
-                    BLEDevices.Add(Device);
+                    BLEDevices.Add(Device._name);
                 }
             }            
         }

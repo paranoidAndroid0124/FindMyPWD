@@ -4,11 +4,11 @@ using static System.Math;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using FindMyPWD.Helper;
-using SQLite;
 using FindMyPWD.Model;
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace FindMyPLWD
 {
@@ -63,27 +63,12 @@ namespace FindMyPLWD
         }
         public void resetSqlite(object sender, EventArgs e)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-            {
-                try
-                {
-                    if (File.Exists(App.FilePath)) //check if the db file exist
-                    {
-                        List<BLEDevice> query = conn.Query<BLEDevice>("SELECT * FROM sqlite_master WHERE type='table'"); //get the tables
-                        if (query.Count > 0) //check if table exist
-                        {
-                            conn.DropTable<BLEDevice>(); //drop(remove) the table
-                        }
-                    }
-                   
-                }
-                catch (Exception) 
-                {
-                    //do nothing
-                }
-                
-
-            }
+            StreamWriter strm = File.CreateText(App.FilePath);
+            strm.Flush();
+            strm.Close();
+            string jsonString = JsonSerializer.Serialize<List<BLEDevice>>(new List<BLEDevice>());
+            File.WriteAllText(App.FilePath, jsonString);
+            
         }
         public async void checkLocation()
         {

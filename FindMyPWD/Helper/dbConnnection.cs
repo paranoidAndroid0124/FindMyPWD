@@ -1,12 +1,14 @@
 ﻿using FindMyPLWD;
 using FindMyPWD.Model;
-using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Text;
 using System.Linq;
+using System.Text.Json;
 
 namespace FindMyPWD.Helper
 {
@@ -45,7 +47,7 @@ namespace FindMyPWD.Helper
             }
         }
         /*This function will add the seen device as a entry to the database*/
-        public static bool WriteDB(string clocktime, string location, string device) 
+        public static bool WriteDB(string clocktime, string location, string device)
         {
             string sqlQuery = "insert into Main ([clocktime], [location], [device]) values(@clock,@loc,@device)"; //double check the values
             using (SqlConnection cnn = new SqlConnection(stringConnection))
@@ -78,47 +80,43 @@ namespace FindMyPWD.Helper
                 {
                     return false; //it failed
                 }
-            }   
+            }
         }
     }
     public static class localDBConnnection //this is local sqlite db to store settings
     {
+       
         public static List<BLEDevice> getPairedDevice()
         {
-            List<BLEDevice> results = new List<BLEDevice>();
-            //Read the sqlite db to know which devices are paired
-            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+            //check if file exist
+            //if (File.Exists(App.FilePath) && (File.ReadAllBytes(App.FilePath).Length > 0)) //check if the db file exist and if there is something in it
+            if (File.Exists(App.FilePath))
             {
-                //check if table exist
-                if (conn.TableMappings.Count() > 0) //might be better to check for the exact table
-                {
-                    results = conn.Table<BLEDevice>().ToList();
-                }
-                else //table was not found so return an empty list
-                {
-                    return results;
-                }
-            }
-            return results; //return paired devices
-        }
+                var fd = File.OpenRead(App.FilePath);
+                List<BLEDevice> results = JsonSerializer.Deserialize<List<BLEDevice>>(fd);
+                fd.Close(); //closed the opened file
 
-        public static void write(BLEDevice device)
-        {
-            if (!alreadyExist(device)) 
+                return results;
+            }
+            else
             {
-                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-                {
-                    conn.CreateTable<BLEDevice>(); //it will only create a table if it doesn't exist
-                    int rowsAdded = conn.Insert(device); //no need to keep the rowsadded
-                }
+                return new List<BLEDevice>(); //empty
             }
         }
+      
 
-        //Return true if the device is already in the database
-        private static bool alreadyExist(BLEDevice device) 
+        public static void write(BLEDevice device) 
         {
-            List<BLEDevice> pairedDevices = getPairedDevice();
-            return pairedDevices.Any(x => x._name.ToString() == device._name);
+            if (!App.FilePath.Contains(device._name)) //if it does not contain the device then add it 
+            {
+                var fd = File.OpenRead(App.FilePath);
+                List<BLEDevice> results = JsonSerializer.Deserialize<List<BLEDevice>>(fd);
+                fd.Close();
+                results.Add(device);
+                string jsonString = JsonSerializer.Serialize<List<BLEDevice>>(results);
+                File.WriteAllText(App.FilePath, jsonString);
+            }
         }
+
     }
 }
