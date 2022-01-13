@@ -1,27 +1,29 @@
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using FindMyPWD.Helper;
 using System.Collections.ObjectModel;
 using FindMyPWD.Model;
 using System.Collections.Generic;
-using SQLite;
-using Plugin.BLE.Abstractions.Contracts;
-using System.Linq;
+using FindMyPWD.Helper;
 
 namespace FindMyPLWD
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewPairedDevices : ContentPage
     {
-        private readonly BLEScanneHelper BLEHelper;
-        ObservableCollection<String> BLEDevices = new ObservableCollection<String>();
-        public ObservableCollection<String> BLEDevicesCollection { get { return BLEDevices; } }
+        ObservableCollection<string> BLEDevices = new ObservableCollection<string>();
+        public ObservableCollection<string> BLEDevicesCollection
+        {
+            get
+            {
+                return BLEDevices;
+            }//this is binded to the viewlist
+        }
 
         public ViewPairedDevices()
         {
             InitializeComponent();
-            AddDevicesToListview();
+            updateViewList();
             DeviceView.ItemsSource = BLEDevicesCollection;
         }
 
@@ -30,25 +32,22 @@ namespace FindMyPLWD
         {
             //add code to allow the user to delete a paired device
         }
-
-        //there is very similiar code in StartServiceAndroid.cs....maybe put both in a helper class
-        void AddDevicesToListview()
+        void refreshListView(object sender, EventArgs e)
         {
-            //read the local sqlite db
-            List<BLEDevice> results = new List<BLEDevice>();
-            //Read the sqlite db to know which devices are paired
-            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-            {
-                //check if table exist...TODO: test if this works
-                if (conn.TableMappings.Count() > 0) //might be better to check for the exact table
-                {
-                    results = conn.Table<BLEDevice>().ToList();//return paired devices
-                }
-            }
-            foreach (BLEDevice PairedDevice in results) 
-            {
-                BLEDevices.Add(PairedDevice._name);
-            }
+            updateViewList();
         }
+
+        void updateViewList() 
+        {
+            List<BLEDevice> PairedDevice = localStorage.getPairedDevice(); //read the Json file
+            foreach (BLEDevice Device in PairedDevice) 
+            {
+                if (!BLEDevices.Contains(Device._name)) //if the device is already in the list don't add it
+                {
+                    BLEDevices.Add(Device._name);
+                }
+            }            
+        }
+
     }
 }

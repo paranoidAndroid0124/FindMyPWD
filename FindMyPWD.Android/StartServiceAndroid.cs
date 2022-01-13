@@ -8,13 +8,13 @@ using System;
 using Xamarin.Forms;
 using FindMyPWD.Model;
 using Plugin.BLE.Abstractions.Contracts;
-using SQLite;
-using FindMyPLWD;
 using System.Collections.ObjectModel;
 using FindMyPWD.Droid.Interface;
 using AndroidX.Core.App;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
 
 [assembly: Xamarin.Forms.Dependency(typeof(NotificationHelper))]
 [assembly: Xamarin.Forms.Dependency(typeof(AndroidServiceHelper))]
@@ -98,6 +98,7 @@ namespace FindMyPWD.Droid
         private BLEScanneHelper BLEHelper;
         ObservableCollection<IDevice> BLEscan = new ObservableCollection<IDevice>();
         public const int ServiceRunningNotifID = 9000; //process id of the service
+        bool scanning = false; //state of the bluetooth scanner
 
         public override IBinder OnBind(Intent intent)
         {
@@ -125,61 +126,66 @@ namespace FindMyPWD.Droid
                 _ = MainActivity.Instance.StartForegroundService(intent);
             }
 
-            //making the scan scanning periodic
-            var startTimeSpan = TimeSpan.Zero; //move the variable to top of the function before pr
-            var periodTimeSpan = TimeSpan.FromSeconds(300); //5 minutes between automatic scans
-
-            var timer = new System.Threading.Timer((e) =>
+            if (!scanning) //check if the service is already started
             {
-                scan();
-            }, null, startTimeSpan, periodTimeSpan);
+                //making the scan scanning periodic
+                var startTimeSpan = TimeSpan.Zero; //move the variable to top of the function before pr
+                var periodTimeSpan = TimeSpan.FromSeconds(10); //10 sec between automatic scans
+
+                var timer = new System.Threading.Timer(async (e) => {
+                    await scan();
+                }, null, startTimeSpan, periodTimeSpan);
+
+                scanning = true;
+            }
 
             return StartCommandResult.Sticky;
         }
         //scanning code
-        private async void scan()
+        private async Task scan()
         {
-            List<IDevice> devices;
+            List<BLEDevice> devices;
             BLEHelper = new BLEScanneHelper();
+            //using (new TimedLock(App.FilePath).Lock(TimeSpan.FromSeconds(10))) { } //thread locking 
             BLEscan = await BLEHelper.ScanBLE();
-            if (BLEscan.Count > 0) //delete this after testing
+
+            if (BLEscan != null)
             {
                 Console.WriteLine("BLEScan:" + BLEscan.Count());
+
+                devices = checkPaired(BLEscan); //returns all paired devices found during the scan
+                                                //TODO: update the sql db saying you found a pair device aka the watch
+                if (devices.Count > 0)
+                {
+                    Console.WriteLine("found paired device: " + devices.First().ToString());
+                }
+                else
+                {
+                    Console.WriteLine("No paired device found");
+                    Console.WriteLine("Trying to scan again...");
+                    Thread.Sleep(100000);
+                    BLEscan = await BLEHelper.ScanBLE();
+                    Console.WriteLine("DONE");
+                }
             }          
-            devices = checkPaired(BLEscan); //returns all paired devices found during the scan
-            //TODO: update the sql db saying you found a pair device aka the watch
-            if (devices.Count > 0)
-            {
-                Console.WriteLine("found paired device: " + devices.First().ToString());
-            }
-            else 
-            {
-                Console.WriteLine("No paired device found");
-            }
         }
 
-        private List<IDevice> checkPaired(ObservableCollection<IDevice> devices)
+        private List<BLEDevice> checkPaired(ObservableCollection<IDevice> devices)
         {
-            List<BLEDevice> results;
-            //Read the sqlite db to know which devices are paired
-            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+            //Read the JSON file storing the pairedDevice
+            List<BLEDevice> paired = localStorage.getPairedDevice();
+            List <BLEDevice> pairedList = new List<BLEDevice>();
+            bool deviceFound = false;
+
+            foreach (BLEDevice pairedDevice in paired) 
             {
-                //check if table exist...TODO: test if this works
-                if (conn.TableMappings.Count() > 0) //might be better to check for the exact table
+                deviceFound = devices.Any(x => x.Name == pairedDevice._name);
+                if (deviceFound) 
                 {
-                    results = conn.Table<BLEDevice>().ToList();//return paired devices
-                }
-                else 
-                {
-                    //there is no paired devices
-                    return new List<IDevice>(); //return an empty list
+                    pairedList.Add(pairedDevice);
                 }
             }
-            return devices.Where(device =>
-            {
-                var match = results.Select( x => x._name == device.Name);
-                return match != null;
-            }).ToList();
+            return pairedList;
         }
 
         public override void OnDestroy()

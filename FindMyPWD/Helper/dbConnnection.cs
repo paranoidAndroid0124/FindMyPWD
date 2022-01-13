@@ -1,14 +1,21 @@
-﻿using FindMyPWD.Model;
+﻿using FindMyPLWD;
+using FindMyPWD.Model;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Text;
+using System.Linq;
+using System.Text.Json;
 
 namespace FindMyPWD.Helper
 {
-    public class dbConnnection
+    public class DBConnnection
     {
         public static ObservableCollection<DB_data> List { get; set; }
+        //connection string is a security risk. Remove and use a azure function before release into production
         private const string stringConnection = @"Server=tcp:findmypwd-server.database.windows.net,1433;Initial Catalog=FindMyPWD_DB;Persist Security Info=False;User ID=paranoidAndroid;Password=7TyLM2EGw9sSyff;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         private const string sqlQuery = null;
         /*This function is to read from the database*/
@@ -40,7 +47,7 @@ namespace FindMyPWD.Helper
             }
         }
         /*This function will add the seen device as a entry to the database*/
-        public static bool WriteDB(string clocktime, string location, string device) 
+        public static bool WriteDB(string clocktime, string location, string device)
         {
             string sqlQuery = "insert into Main ([clocktime], [location], [device]) values(@clock,@loc,@device)"; //double check the values
             using (SqlConnection cnn = new SqlConnection(stringConnection))
@@ -48,8 +55,6 @@ namespace FindMyPWD.Helper
                 try
                 {
                     // Open the connection to the database. 
-                    // This is the first critical step in the process.
-                    // If we cannot reach the db then we have connectivity problems
                     cnn.Open();
 
                     // Prepare the command to be executed on the db
@@ -71,12 +76,55 @@ namespace FindMyPWD.Helper
                     }
                     return true; //it worked
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return false; //it failed
                 }
             }
+        }
+    }
+    public static class localStorage //this is locally stored Json file
+    {
+       
+        public static List<BLEDevice> getPairedDevice()
+        {
+            //check if file exist
+            if (File.Exists(App.FilePath))
+            {
+                var fd = File.OpenRead(App.FilePath);
+                List<BLEDevice> results = JsonSerializer.Deserialize<List<BLEDevice>>(fd);
+                fd.Close(); //closed the opened file
+
+                return results;
+            }
+            else
+            {
+                return new List<BLEDevice>(); //empty
+            }
+        }
+      
+
+        public static void write(BLEDevice device) 
+        {
+            if (!File.Exists(App.FilePath)) //if the file doesn't exist than create it
+            {
+                createNewJson();
+            }
+            var fd = File.OpenRead(App.FilePath);
+            List<BLEDevice> results = JsonSerializer.Deserialize<List<BLEDevice>>(fd);
+            fd.Close();
+            results.Add(device);
+            string jsonString = JsonSerializer.Serialize<List<BLEDevice>>(results);
+            File.WriteAllText(App.FilePath, jsonString);
+        }
+
+        public static void createNewJson() 
+        {
             
+            var fd = File.Create(App.FilePath);
+            fd.Close();
+            string jsonString = JsonSerializer.Serialize<List<BLEDevice>>(new List<BLEDevice>());
+            File.WriteAllText(App.FilePath, jsonString);
         }
     }
 }

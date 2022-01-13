@@ -12,7 +12,6 @@ namespace FindMyPWD.Helper
         public IBluetoothLE ble;
         IAdapter adapter;
         ObservableCollection<IDevice> deviceList;
-        IDevice device;
         PermissionStatus perStatus;
         public BLEScanneHelper()
         {
@@ -49,7 +48,7 @@ namespace FindMyPWD.Helper
             return result;
         }
 
-        public async Task<ObservableCollection<IDevice>> ScanBLE() //when the sender is not need just as the automatic scanning
+        public async Task<ObservableCollection<IDevice>> ScanBLE()
         {
             await CheckLocPer();
             if (BLEStatus() && perStatus == PermissionStatus.Granted) //check if scanning is possible

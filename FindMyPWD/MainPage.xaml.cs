@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using static System.Math;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using FindMyPWD.Helper;
-using FindMyPWD.Interface;
-using SQLite;
 using FindMyPWD.Model;
 using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Text.Json;
 
 namespace FindMyPLWD
 {
@@ -57,30 +55,20 @@ namespace FindMyPLWD
             TempLbl.Text = BLE;
         }
 
-        public async void DB_Reading(object sender, EventArgs e) 
+        public void DB_Reading(object sender, EventArgs e) 
         {
-            dbConnnection.GetDB(); 
-            var db = dbConnnection.List;
+            DBConnnection.GetDB(); 
+            var db = DBConnnection.List;
             TempLbl.Text = db.Count().ToString();
         }
-        public void resetSqlite(object sender, EventArgs e)
+        public void resetJson(object sender, EventArgs e)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-            {
-                try
-                {
-                    if (conn.Execute("SELECT * FROM sqlite_master WHERE type = 'table';").ToString() != "0") //check if any table exist
-                    {
-                        conn.DropTable<BLEDevice>(); //drop(remove) the table
-                    }
-                }
-                catch (Exception) 
-                {
-                    //do nothing
-                }
-                
-
-            }
+            StreamWriter strm = File.CreateText(App.FilePath);
+            strm.Flush();
+            strm.Close();
+            string jsonString = JsonSerializer.Serialize<List<BLEDevice>>(new List<BLEDevice>());
+            File.WriteAllText(App.FilePath, jsonString);
+            
         }
         public async void setupSafetyZone(object sender, System.EventArgs e)
         {
