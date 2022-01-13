@@ -132,8 +132,11 @@
     <PackageReference Include="System.Data.SqlClient">
       <Version>4.8.3</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.Forms.Maps">
+      <Version>5.0.0.2291</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -141,5 +144,8 @@
       <Project>{C8D20562-4491-40C5-9161-7F48DC833EC9}</Project>
       <Name>FindMyPWD</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Xamarin\" />
   </ItemGroup>
 </Project>

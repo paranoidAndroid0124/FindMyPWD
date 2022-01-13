@@ -82,6 +82,11 @@ namespace FindMyPLWD
 
             }
         }
+        public async void setupSafetyZone(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.SetUpSafetyZone(this.cdp)));
+        }
+
         public async void checkLocation()
         {
             while(this.cdp.getConnected() == true) //checks location while connected

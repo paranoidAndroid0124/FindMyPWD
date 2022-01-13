@@ -15,6 +15,7 @@
             <Button x:Name ="CheckBLE" Text="Check BLE" Clicked="BLEConfig"/>
             <Button x:Name ="CheckDB" Text="Check DB" Clicked="DB_Reading"/>
             <Button x:Name ="ResetSQLite" Text="reset sqlite" Clicked="resetSqlite"/>
+            <Button x:Name ="SetupSafteyZone" Text="SetupSafteyZone" Clicked="setupSafetyZone"/>
             <Label x:Name="TempLbl"/>
         </StackLayout>
     </ContentPage.Content>
