@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FindMyPLWD.ConnectPage">
+             x:Class="FindMyPLWD.ViewPairedDevices">
     <ContentPage.Content>
         <StackLayout>
             <Frame BackgroundColor="CadetBlue" Padding="24" CornerRadius="0">
                 <Label Text = "Devices" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
-            <Button x:Name="Device1"  Text = "Device1" Clicked="Select"/>
-            <Button x:Name="Device2" Text = "Device2" Clicked="Select"/>
-            <Button x:Name="Device3" Text = "Device3" Clicked="Select"/>
-            <Button x:Name="TemporaryDevice" Text="Temporary Device" Clicked="Select"/>
-            <Label x:Name="TempLbl"/>
-            <Button x:Name="Scan" Text = "Scan" Clicked="ScanBLE"/>
+            <Label x:Name="PairedLbl" Text="Your paired Devices:"/>
+            <Button x:Name="RefreshBtn" Text="Refresh" Clicked="refreshListView"/>
+            <ListView x:Name="DeviceView" ItemsSource="{Binding BLEDevicesCollection}" ItemSelected="OnSelectedItem">
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using static System.Math;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using FindMyPWD.Helper;
-using FindMyPWD.Interface;
+using FindMyPWD.Model;
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Text.Json;
 
 namespace FindMyPLWD
 {
@@ -24,15 +24,9 @@ namespace FindMyPLWD
             BLEHelper = new BLEScanneHelper();
         }
 
-        public async void BLEConfig(object sender, System.EventArgs e)
+        public async void Handle_Clicked_Pair(object sender, System.EventArgs e)
         {
-            string BLE = await BLEHelper.CheckBLE();
-            TempLbl.Text = BLE;
-        }
-
-        public async void Handle_Clicked_Connect(object sender, System.EventArgs e)
-        {
-            await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.ConnectPage()));
+            await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.ViewPairedDevices()));
         }
         public async void Handle_Clicked_Set_Up(object sender, System.EventArgs e)
         {
@@ -54,6 +48,27 @@ namespace FindMyPLWD
             });
             checkLocation();
             //start making sure device is in range as soon as the map opens
+        }
+        public async void BLEConfig(object sender, System.EventArgs e)
+        {
+            string BLE = await BLEHelper.CheckBLE();
+            TempLbl.Text = BLE;
+        }
+
+        public void DB_Reading(object sender, EventArgs e) 
+        {
+            DBConnnection.GetDB(); 
+            var db = DBConnnection.List;
+            TempLbl.Text = db.Count().ToString();
+        }
+        public void resetJson(object sender, EventArgs e)
+        {
+            StreamWriter strm = File.CreateText(App.FilePath);
+            strm.Flush();
+            strm.Close();
+            string jsonString = JsonSerializer.Serialize<List<BLEDevice>>(new List<BLEDevice>());
+            File.WriteAllText(App.FilePath, jsonString);
+            
         }
         public async void checkLocation()
         {

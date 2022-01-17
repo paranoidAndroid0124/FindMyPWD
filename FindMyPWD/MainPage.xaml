@@ -7,12 +7,14 @@
             <Frame BackgroundColor="CadetBlue" Padding="24" CornerRadius="0">
                 <Label Text="Welcome to the Tracker App!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
-            <Button x:Name ="Connect" Text="Connect to Device" Clicked="Handle_Clicked_Connect" Padding="25"/>
+            <Button x:Name ="Connect" Text="View Paired Device" Clicked="Handle_Clicked_Pair" Padding="25"/>
             <Button x:Name ="Set" Text="Set Up a New Device" Clicked="Handle_Clicked_Set_Up" />
             <Button x:Name ="Manage" Text="Manage Devices" Clicked="Handle_Clicked_Manage" />
             <Button x:Name="GeoFence" Text="Set Geo-Fencing Range" Clicked="Handle_Clicked_Range" />
             <Button x:Name ="MapButton" Text="Open Map" Clicked="Open_Map"/>
             <Button x:Name ="CheckBLE" Text="Check BLE" Clicked="BLEConfig"/>
+            <Button x:Name ="CheckDB" Text="Check DB" Clicked="DB_Reading"/>
+            <Button x:Name ="ResetSQLite" Text="reset Json" Clicked="resetJson"/>
             <Label x:Name="TempLbl"/>
         </StackLayout>
     </ContentPage.Content>

@@ -1,18 +1,12 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using FindMyPLWD;
 using System.IO;
 using Android.Content;
 using Xamarin.Forms;
 using FindMyPWD.Interface;
-using Plugin.Permissions;
-using FindMyPWD.Helper;
 
 namespace FindMyPWD.Droid
 {
@@ -33,7 +27,7 @@ namespace FindMyPWD.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             //storage of paired devices
-            string fileName = "device_db.db3";
+            string fileName = "device_db.json";
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);//this is specific to androind...ios needs a specific file path
             string completePath = Path.Combine(folderPath, fileName);
 
