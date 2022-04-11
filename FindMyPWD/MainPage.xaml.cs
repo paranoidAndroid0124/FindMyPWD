@@ -32,9 +32,9 @@ namespace FindMyPLWD
         {
             await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.SetUpPage(this.cdp)));
         }
-        public async void Handle_Clicked_Manage(object sender, System.EventArgs e)
+        public async void Handle_Clicked_UserSetup(object sender, System.EventArgs e)
         {
-            await Navigation.PushAsync(new NavigationPage(this.cdp));
+            await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.UserSetup(this.cdp)));
         }
         public async void Handle_Clicked_Range(object sender, System.EventArgs e)
         {
@@ -70,6 +70,11 @@ namespace FindMyPLWD
             File.WriteAllText(App.FilePath, jsonString);
             
         }
+        public async void setupSafetyZone(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new NavigationPage(new FindMyPLWD.SetUpSafetyZone(this.cdp)));
+        }
+
         public async void checkLocation()
         {
             while(this.cdp.getConnected() == true) //checks location while connected
@@ -139,4 +144,5 @@ namespace FindMyPLWD
         }
 
     }
+
 }

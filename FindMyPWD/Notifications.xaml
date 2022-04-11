@@ -5,11 +5,10 @@
     <ContentPage.Content>
         <StackLayout>
             <Frame BackgroundColor="CadetBlue" Padding="24" CornerRadius="0">
-                <Label Text = "Set Geo-Fencing Range" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+                <Label Text = "Testing Page for Lost Notifications" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
-            <Button x:Name ="Range22" Text ="22 Metres" Clicked="Clicked_22"/>
-            <Button x:Name ="Range33" Text ="33 Metres" Clicked="Clicked_33"/>
-            <Button x:Name ="Range44" Text ="44 Metres" Clicked="Clicked_44"/>
+            <Button x:Name ="SampleNotification" Text ="SampleNotification" Clicked="SampleNotification_Clicked"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

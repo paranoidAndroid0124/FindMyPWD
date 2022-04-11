@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             x:Class="FindMyPLWD.SetUpSafetyZone">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text = "User Profile" HorizontalTextAlignment="Center" TextColor="Black" FontSize="36"/>
+            <Entry x:Name="caregiverNameEntry" Placeholder="Caregiver Name" />
+            <Entry x:Name="plwdNameEntry" Placeholder="Watch User Name" />
+            <Entry x:Name="addressEntry" Placeholder="Home Address" />
+            <Entry x:Name="radiusFromPoint" Placeholder="Safe Distance from Location in meters" Keyboard="Numeric"/>
+            <Label x:Name="addressLabel" Text="This is where the address is going to go"/>
+            <Label x:Name="coordLabel" Text="This is where the coordinates are going to go" />
+            <Button x:Name="enterButton" Text="Enter" Clicked="enterButton_Clicked"/>
+            <Button x:Name="checkButton" Text="Check In range" Clicked="checkButton_Clicked"/>
+
+            <maps:Map x:Name="Map" IsShowingUser="True"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
