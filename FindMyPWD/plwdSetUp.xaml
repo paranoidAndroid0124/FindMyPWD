@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindMyPLWD.plwdSetUp">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text = "PLWD Set up" HorizontalTextAlignment="Center" TextColor="Black" FontSize="36"/>
+            <Entry x:Name="plwdFirstNameEntry" Placeholder="PLWD First Name" />
+            <Entry x:Name="plwdLastNameEntry" Placeholder="PLWD Last Name" />
+            <Entry x:Name="plwdDistanceEntry" Placeholder="Safe Distance From Caregiver" />
+
+            <Button x:Name="sendToDatabase" Text="Save" Clicked="sendToDatabase_Clicked"/>
+            <Button x:Name="nextButton" Text="Next" Clicked="nextButton_Clicked" IsEnabled="False"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

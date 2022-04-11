@@ -7,9 +7,8 @@ using System.IO;
 using Android.Content;
 using Xamarin.Forms;
 using FindMyPWD.Interface;
-using Plugin.Permissions;
-using FindMyPWD.Helper;
 using Android;
+using Plugin.LocalNotification;
 
 namespace FindMyPWD.Droid
 {
@@ -34,8 +33,12 @@ namespace FindMyPWD.Droid
 
             base.OnCreate(savedInstanceState);
 
+            NotificationCenter.CreateNotificationChannel();
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+
             Xamarin.FormsMaps.Init(this, savedInstanceState);
 
             //storage of paired devices
@@ -43,11 +46,19 @@ namespace FindMyPWD.Droid
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);//this is specific to androind...ios needs a specific file path
             string completePath = Path.Combine(folderPath, fileName);
 
+            NotificationCenter.NotifyNotificationTapped(Intent);
+
 
             //call method to start service
             DependencyService.Get<IAndroidService>().StartService();
 
             LoadApplication(new App(completePath));
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            NotificationCenter.NotifyNotificationTapped(intent);
+            base.OnNewIntent(intent);
         }
 
         protected override void OnStart()

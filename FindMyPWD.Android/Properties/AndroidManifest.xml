@@ -1,15 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.findmypwd">
-    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
-    <application android:label="FindMyPWD.Android">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.findmypwd" android:installLocation="internalOnly">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
+	<application android:label="FindMyPWD.Android">
+		<!-- this was the api (geo) i was using with the api key -->
 		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyACskLAlIknIPj5wd2mZbl3cCXSFlo7EYM" />
+		<!-- going to try this api with the api key to see if it works with xamarin forms maps  -->
+		<!--
+		Didnt end up working, apprenlty this is just an older version of the geo api 
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyACskLAlIknIPj5wd2mZbl3cCXSFlo7EYM" />
+		-->
+		<!--This embeds the version of Google Play services that the application was compiled with, into the manifest -->
+		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+		<!-- tells the application to use the Apache Http client library, which has been removed from the bootclasspath in Android 9 -->
 		<uses-library android:name="org.apache.http.legacy" android:required="false" />
 	</application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- this allows for checking internet connect -->
-	<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/> <!-- fully this allows the "background scanning" -->
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<!-- this allows for checking internet connect -->
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+	<!-- fully this allows the "background scanning" -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />
 	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET" />
 </manifest>

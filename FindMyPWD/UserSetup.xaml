@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindMyPLWD.UserSetup">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text = "Caregiver Set up" HorizontalTextAlignment="Center" TextColor="Black" FontSize="36"/>
+            <Entry x:Name="caregiverFirstNameEntry" Placeholder="Caregiver First Name" />
+            <Entry x:Name="caregiverLastNameEntry" Placeholder="Caregiver Last Name" />
+            <Entry x:Name="caregiverEmailEntry" Placeholder="Caregiver Email" />
+            <Entry x:Name="plwdFirstNameEntry" Placeholder="Watch User First Name" />
+            <Entry x:Name="plwdLastNameEntry" Placeholder="Watch User Last Name" />
+            <Button x:Name="sendToDatabase" Text="Save" Clicked="sendToDatabase_Clicked"/>
+            <Button x:Name="nextSetupButton" Text="Next" Clicked="nextSetupButton_Clicked" IsEnabled="False"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
