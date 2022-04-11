@@ -55,7 +55,7 @@ namespace FindMyPLWD
                     break;
                 }
             }
-            TempLbl.Text = pairedDevice.Id.ToString();
+            TempLbl.Text = pairedDevice.Id.ToString(); //SEND TO DATABASE
             savePairedDevice(pairedDevice);
         }
 
@@ -64,6 +64,7 @@ namespace FindMyPLWD
         {
             BLEDevice bLEDevice = new BLEDevice(pairedDevice.Name, pairedDevice.Id.ToString());
             localStorage.write(bLEDevice);
+            //UPDATE DATABASE HERE
         }
 
     }
