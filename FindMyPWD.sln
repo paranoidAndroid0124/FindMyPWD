@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMyPWD.Android", "FindMy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMyPWD.iOS", "FindMyPWD.iOS\FindMyPWD.iOS.csproj", "{EE3D4792-63D4-4878-85DA-B07E8C253B4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMyPWD.Tests", "FindMyPWD.Tests\FindMyPWD.Tests.csproj", "{9385EE33-E8AE-4304-A0D3-92953DF356DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,18 @@ Global
 		{EE3D4792-63D4-4878-85DA-B07E8C253B4F}.Release|iPhone.Build.0 = Release|iPhone
 		{EE3D4792-63D4-4878-85DA-B07E8C253B4F}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{EE3D4792-63D4-4878-85DA-B07E8C253B4F}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Release|iPhone.Build.0 = Release|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9385EE33-E8AE-4304-A0D3-92953DF356DA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
