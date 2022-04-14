@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasBackButton="False"
              x:Class="FindMyPLWD.MainPage">
     <ContentPage.Content>
         <StackLayout>
@@ -8,15 +9,11 @@
                 <Label Text="Welcome to the Tracker App!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
             <Button x:Name ="Connect" Text="View Paired Device" Clicked="Handle_Clicked_Pair" Padding="25"/>
-            <Button x:Name ="Set" Text="Set Up a New Device" Clicked="Handle_Clicked_Set_Up" />
-            <Button x:Name ="UserSetup" Text="User Setup" Clicked="Handle_Clicked_UserSetup" />
-            <Button x:Name="GeoFence" Text="Set Geo-Fencing Range" Clicked="Handle_Clicked_Range" />
-            <Button x:Name ="MapButton" Text="Open Map" Clicked="Open_Map"/>
-            <Button x:Name ="CheckBLE" Text="Check BLE" Clicked="BLEConfig"/>
-            <Button x:Name ="CheckDB" Text="Check DB" Clicked="DB_Reading"/>
-            <Button x:Name ="SetupSafteyZone" Text="SetupSafteyZone" Clicked="setupSafetyZone"/>
-            <Button x:Name ="ResetSQLite" Text="reset Json" Clicked="resetJson"/>
-            <Label x:Name="TempLbl"/>
+            <Button x:Name ="Set" Text="Set Up a New Device" Clicked="Handle_Clicked_Set_Up" Padding="25"/>
+            <Button x:Name ="UserSetup" Text="User Setup" Clicked="Handle_Clicked_UserSetup" Padding="25"/>
+            <Button x:Name="NotificationPage" Text="Notification Test" Clicked="NotificationPage_Clicked" Padding="25"/>
+            <Button x:Name ="SafeZonesButton" Text="Safe Zones" Clicked="Safe_Zones" Padding="25"/>
+            <Button x:Name="CheckPLWDButton" Text="Check on PLWD" Clicked="CheckPLWDButton_Clicked" Padding="25" />
         </StackLayout>
     </ContentPage.Content>
 

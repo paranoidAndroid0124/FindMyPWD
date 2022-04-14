@@ -30,8 +30,8 @@ namespace FindMyPLWD
             string caregiverFirstName = caregiverFirstNameEntry.Text;
             string caregiverLastName = caregiverLastNameEntry.Text;
             string caregiverEmail = caregiverEmailEntry.Text;
-            string plwdFirstName = plwdFirstNameEntry.Text;
-            string plwdLastName = plwdFirstNameEntry.Text;
+            string caregiverPassword = caregiverPasswordEntry.Text;
+
 
             //Checks to ensure all the fields are filled out correctly
             if (caregiverFirstName.Equals(null))
@@ -46,6 +46,10 @@ namespace FindMyPLWD
             {
                 DisplayAlert("Alert", "You must enter a Caregiver Email", "OK");
             }
+            else if (caregiverPassword.Equals(null))
+            {
+                DisplayAlert("Alert", "You must enter a Password", "OK");
+            }
             else 
             {
                 //This means all the fields were filled out correctly 
@@ -53,10 +57,11 @@ namespace FindMyPLWD
 
                 //First we create a SQL command for inserting data
 
-                SqlCommand insertCommand = new SqlCommand("INSERT INTO Caregiver (firstname,lastname,email) VALUES(@caregvierFirstName,@caregvierLastName, @caregiverEmail)");
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO Caregiver (firstname,lastname,email,caregiver_password) VALUES(@caregvierFirstName,@caregvierLastName, @caregiverEmail,@caregiverPassword)");
                 insertCommand.Parameters.AddWithValue("@caregvierFirstName", caregiverFirstName);
                 insertCommand.Parameters.AddWithValue("@caregvierLastName", caregiverLastName);
                 insertCommand.Parameters.AddWithValue("@caregiverEmail", caregiverEmail);
+                insertCommand.Parameters.AddWithValue("@caregiverPassword", caregiverPassword);
 
                 //This will create a new row in the database with the values given 
                 int row = objdbaccess.executeQuery(insertCommand);
@@ -81,13 +86,9 @@ namespace FindMyPLWD
             string caregiverEmail = caregiverEmailEntry.Text;
 
 
-            //Console.WriteLine("THIS IS THE EMIAL BEING SENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + caregiverEmail);
-
             //Get the id of the caregiver just created to pass to the next part of the set up
             string query = "SELECT id FROM Caregiver WHERE email='" + caregiverEmail + "'";
             objdbaccess.readDatathroughAdapter(query,dtCaregivers);
-
-            //Console.WriteLine(dtCaregivers.Rows[0]["id"].ToString());
 
             //If the query from the database was sucessful and returned the caregiver ID
             if (dtCaregivers.Rows.Count == 1)

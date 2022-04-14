@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindMyPWD.LandingPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="CadetBlue" Padding="24" CornerRadius="0">
+                <Label Text="Welcome to the Location Tracking System" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+            </Frame>
+
+            <Button x:Name="signUpButton" Text="Sign Up" Clicked="signUpButton_Clicked"/>
+            <Button x:Name="signInButton" Text="Sign In" Clicked="signInButton_Clicked" />
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
