@@ -30,9 +30,6 @@
     <Compile Update="NotificationTestPage.xaml.cs">
       <DependentUpon>NotificationTestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="MapView.xaml.cs">
-      <DependentUpon>MapView.xaml</DependentUpon>
-    </Compile>
     <Compile Update="ViewPairedDevices.xaml.cs">
       <DependentUpon>ViewPairedDevices.xaml</DependentUpon>
     </Compile>
@@ -43,9 +40,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="LandingPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="MapView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="plwdSetUp.xaml">

@@ -130,7 +130,7 @@ namespace FindMyPLWD
         private void Home_Clicked(object sender, EventArgs e)
         {
             ActiveUser user = new ActiveUser(Caregiver_ID, PLWD_ID, watchID);
-            Navigation.PushAsync(new FindMyPLWD.MainPage(this.cdp,user));
+            Navigation.PushAsync(new FindMyPWD.LandingPage(this.cdp));
         }
     }
 }

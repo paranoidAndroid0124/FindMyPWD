@@ -11,7 +11,7 @@
             <Label x:Name="PairedDevice" Text ="Paired Device label"/>
             <Button x:Name= "Pairing" Text="Click Button to Start Paring Process" Clicked="Pairing_Clicked"/>
             <Label x:Name="TempLbl" Text ="Unique Watch Identifer Will Go Here"/>
-            <Button x:Name="Home" Text="Back to Home" Clicked="Home_Clicked" IsEnabled="False"/>
+            <Button x:Name="Home" Text="Back to Landing Page" Clicked="Home_Clicked" IsEnabled="False"/>
             <ListView x:Name="DeviceView" ItemsSource="{Binding BLEDevicesCollection}" ItemSelected="OnSelectedItem">
             </ListView>
         </StackLayout>
