@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Android;
 using Android.App;
 
 // General Information about an assembly is controlled through the following 
@@ -36,3 +37,5 @@ using Android.App;
 [assembly: UsesFeature("android.hardware.location", Required = true)]
 [assembly: UsesFeature("android.hardware.location.gps", Required = true)]
 [assembly: UsesFeature("android.hardware.location.network", Required = true)]
+
+[assembly: UsesPermission(Manifest.Permission.AccessBackgroundLocation)]

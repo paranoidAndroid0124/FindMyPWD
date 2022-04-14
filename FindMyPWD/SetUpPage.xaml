@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FindMyPLWD.SetUpPage">
+             x:Class="FindMyPLWD.SetUpPage"
+             NavigationPage.HasBackButton="False">
     <ContentPage.Content>
         <StackLayout>
             <Frame BackgroundColor="CadetBlue" Padding="24" CornerRadius="0">
                 <Label Text="Choose a Device to Set Up" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
             <Label x:Name="PairedDevice" Text ="Paired Device label"/>
-            <Button x:Name= "Pairing" Text="Pair new device" Clicked="Pairing_Clicked"/>
-            <Label x:Name="TempLbl" Text ="temp label"/>
+            <Button x:Name= "Pairing" Text="Click Button to Start Paring Process" Clicked="Pairing_Clicked"/>
+            <Label x:Name="TempLbl" Text ="Unique Watch Identifer Will Go Here"/>
+            <Button x:Name="Home" Text="Back to Home" Clicked="Home_Clicked" IsEnabled="False"/>
             <ListView x:Name="DeviceView" ItemsSource="{Binding BLEDevicesCollection}" ItemSelected="OnSelectedItem">
             </ListView>
         </StackLayout>

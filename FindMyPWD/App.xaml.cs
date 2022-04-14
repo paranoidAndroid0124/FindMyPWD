@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using FindMyPLWD;
+using FindMyPWD;
+using Xamarin.Forms;
 
 namespace FindMyPLWD
 {
@@ -10,13 +12,15 @@ namespace FindMyPLWD
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage(new CurrentDevicePage()));
+            //MainPage = new NavigationPage(new MainPage(new CurrentDevicePage()));
+            MainPage = new NavigationPage(new LandingPage(new CurrentDevicePage()));
         }
         public App(string filePath)
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage(new CurrentDevicePage()));
+            //MainPage = new NavigationPage(new MainPage(new CurrentDevicePage()));
+            MainPage = new NavigationPage(new LandingPage(new CurrentDevicePage()));
 
             FilePath = filePath;
         }

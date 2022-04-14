@@ -7,10 +7,10 @@ using Xamarin.Essentials;
 namespace FindMyPLWD
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GeoFencingPage : ContentPage
+    public partial class NotificationTestPage : ContentPage
     {
         private CurrentDevicePage cdp;
-        public GeoFencingPage(CurrentDevicePage cdp)
+        public NotificationTestPage(CurrentDevicePage cdp)
         {
             this.cdp = cdp;
             InitializeComponent();
@@ -34,7 +34,7 @@ namespace FindMyPLWD
             {
                 BadgeNumber = 1,
                 Title = "Attention Required",
-                Description = "Person out of range of caregivers. Click to view location!",
+                Description = "PLWD: Bob Smith is out of range. Click to view location!",
                 NotificationId = 1,
                 Schedule =
                 {

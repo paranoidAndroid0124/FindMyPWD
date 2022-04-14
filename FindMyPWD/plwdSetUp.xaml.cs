@@ -39,27 +39,28 @@ namespace FindMyPLWD
             //Checks to ensure all the fields are filled out correctly
             if (plwdFirstName.Equals(null))
             {
-                DisplayAlert("Alert", "You must enter a Caregiver First Name", "OK");
+                DisplayAlert("Error", "You must enter a Caregiver First Name", "OK");
             }
             else if (plwdLastName.Equals(null))
             {
-                DisplayAlert("Alert", "You must enter a Caregiver Last Name", "OK");
+                DisplayAlert("Error", "You must enter a Caregiver Last Name", "OK");
             }
             else if (plwdDistance.Equals(null))
             {
-                DisplayAlert("Alert", "You must enter a safe distance from Caregiver", "OK");
+                DisplayAlert("Error", "You must enter a safe distance from Caregiver", "OK");
             }
             else
             {
                 //At this point all the fields are filled out correctly
 
                 //Creating SQL command for accessing database to create an entry
-                SqlCommand insertCommand = new SqlCommand("INSERT INTO PLWD (firstname,lastname,caregiver_id,watch_id,distance_from_caregiver) VALUES(@plwdFirstName,@plwdLastName,@caregiver_id,@watch_id,@distance_from_caregiver)");
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO PLWD (firstname,lastname,distance_from_caregiver,caregiver_id,watch_id) VALUES(@plwdFirstName,@plwdLastName,@distance_from_caregiver,@caregiver_id,@watch_id)");
                 insertCommand.Parameters.AddWithValue("@plwdFirstName", plwdFirstName);
                 insertCommand.Parameters.AddWithValue("@plwdLastName", plwdLastName);
+                insertCommand.Parameters.AddWithValue("@distance_from_caregiver", plwdDistance);
                 insertCommand.Parameters.AddWithValue("@caregiver_id", CaregiverID);
                 insertCommand.Parameters.AddWithValue("@watch_id", 0);
-                insertCommand.Parameters.AddWithValue("@distance_from_caregiver", plwdDistance);
+                
 
                 //This will create a new row in the database with the values given 
                 int row = objdbaccess.executeQuery(insertCommand);
@@ -67,7 +68,7 @@ namespace FindMyPLWD
                 //This means the data entry was a sucess 
                 if (row == 1)
                 {
-                    DisplayAlert("Sucess", "PLWD " + plwdFirstName + " " + plwdLastName + " created", "OK");
+                    DisplayAlert("Sucess", "PLWD " + plwdFirstName + " " + plwdLastName + " Created", "OK");
 
                     //This action will enable the user to click the "next" button to proceed to the next phase of setup 
                     Button nextbutton = nextButton;
@@ -96,7 +97,7 @@ namespace FindMyPLWD
             //Button click will bring user to next page 
             //Navigation.PushAsync(new NavigationPage(new MainPage(this.cdp)));
 
-            Navigation.PushAsync(new FindMyPLWD.SetupSafeZones(this.cdp, PLWD_ID));
+            Navigation.PushAsync(new FindMyPLWD.SetUpPage(this.cdp, CaregiverID, PLWD_ID));
 
         }
     }
