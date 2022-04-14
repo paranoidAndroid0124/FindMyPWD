@@ -95,7 +95,6 @@ namespace FindMyPLWD
 
             }
             //Button click will bring user to next page 
-            //Navigation.PushAsync(new NavigationPage(new MainPage(this.cdp)));
 
             Navigation.PushAsync(new FindMyPLWD.SetUpPage(this.cdp, CaregiverID, PLWD_ID));
 

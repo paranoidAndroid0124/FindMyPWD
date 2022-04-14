@@ -86,13 +86,9 @@ namespace FindMyPLWD
             string caregiverEmail = caregiverEmailEntry.Text;
 
 
-            //Console.WriteLine("THIS IS THE EMIAL BEING SENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + caregiverEmail);
-
             //Get the id of the caregiver just created to pass to the next part of the set up
             string query = "SELECT id FROM Caregiver WHERE email='" + caregiverEmail + "'";
             objdbaccess.readDatathroughAdapter(query,dtCaregivers);
-
-            //Console.WriteLine(dtCaregivers.Rows[0]["id"].ToString());
 
             //If the query from the database was sucessful and returned the caregiver ID
             if (dtCaregivers.Rows.Count == 1)

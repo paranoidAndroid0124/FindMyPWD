@@ -36,7 +36,6 @@ namespace FindMyPLWD
             label3.IsVisible = true;
             label5.IsVisible = true;
             //First pull lastest location update from database
-            //SELECT TOP 1 * FROM LocationLogs ORDER BY ID DESC;
 
             string query = "SELECT TOP 1 * FROM LocationLogs ORDER BY ID DESC";
             objdbaccess.readDatathroughAdapter(query, dtLocations);
@@ -89,7 +88,6 @@ namespace FindMyPLWD
                         //Since the PLWD is not near the caregiver we now have to check if they are in any of the predefined safe zones
 
                         string allSafeZonesQuery = "Select * FROM SafeZones where plwd_id='" + plwd_id + "'";
-                        //string allSafeZonesQuery = "Select * FROM SafeZones where plwd_id='7'";
                         objdbaccess.readDatathroughAdapter(allSafeZonesQuery, dtSafeZones);
                         int rows = dtSafeZones.Rows.Count;
                         if (rows >= 1)

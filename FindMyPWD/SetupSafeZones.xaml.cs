@@ -36,7 +36,6 @@ namespace FindMyPLWD
         {
             this.cdp = cdp;
             InitializeComponent();
-            //user.getActiveCaregiverID();
             user = givenUser;
             PLWD_ID = user.getActivePlwdID(); 
         }
@@ -63,8 +62,6 @@ namespace FindMyPLWD
                     lat_coord = location.Latitude;
 
                     var tem = $"Latitude: {location.Latitude}, Longitude: {location.Longitude}";
-                    //Temp1.Text = location.ToString();
-                    //Temp2.Text = tem; 
 
                     SqlCommand insertCommand = new SqlCommand("INSERT INTO SafeZones (address_name,longitude,latitude,radius,plwd_id) VALUES(@address, @longitude, @latitude, @radius, @plwd_id)");
                     insertCommand.Parameters.AddWithValue("@address", address.ToString());
@@ -92,7 +89,6 @@ namespace FindMyPLWD
                 else
                 {
                     DisplayAlert("Error","Address entered was not found. Please try again.", "Ok");
-                    //Temp1.Text = "Address not found";
                 }
 
             }

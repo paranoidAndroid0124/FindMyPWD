@@ -10,7 +10,6 @@
 
             <Button x:Name="signUpButton" Text="Sign Up" Clicked="signUpButton_Clicked"/>
             <Button x:Name="signInButton" Text="Sign In" Clicked="signInButton_Clicked" />
-            <!--<Button x:Name="tempHomeButton" Text="Home" Clicked="tempHomeButton_Clicked" /> -->
 
         </StackLayout>
     </ContentPage.Content>

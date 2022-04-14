@@ -34,15 +34,12 @@ namespace FindMyPLWD
         {
             this.cdp = cdp;
             InitializeComponent();
-            //user = new ActiveUser("","","");
         }
 
         private void enterButton_Clicked(object sender, EventArgs e)
         {
             string caregiverEmail = emailEntry.Text;
             string caregiverPassword = passwordEntry.Text;
-
-            //SELECT id FROM Caregiver WHERE email='John' AND password='Doe'; 
 
             //Get the id of the caregiver just created to pass to the next part of the set up
             string query = "SELECT id FROM Caregiver WHERE email='" + caregiverEmail + "' AND caregiver_password='" + caregiverPassword + "'";
@@ -75,17 +72,10 @@ namespace FindMyPLWD
 
                 user = new ActiveUser(CaregiverID, plwdID, watchID);
 
-                //user.setActiveCaregiverID = CaregiverID;
-                //user.setActivePlwdID = plwdID;
-                //user.setActiveWatchID = watchID;
-
                 Console.WriteLine("------------------------" + CaregiverID);
                 Console.WriteLine("------------------------" + plwdID);
                 Console.WriteLine("------------------------" + watchID);
 
-                //CaregiverLabel.Text = CaregiverID;
-                //PWLDLabel.Text = plwdID;
-                //WatchLabel.Text = watchID;
 
                 Navigation.PushAsync(new FindMyPLWD.MainPage(this.cdp,user));
 

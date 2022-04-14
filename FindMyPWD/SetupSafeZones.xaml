@@ -9,15 +9,10 @@
             <Entry x:Name="addressEntry" Placeholder="Enter address" />
             <Entry x:Name="safeDistance" Placeholder="Enter safe distance from location (meters)" Keyboard="Numeric"/>
             
-            <!--<Label x:Name="Temp1" Text="This is where the address will go" />
-            <Label x:Name="Temp2" Text="This is where the coordinates will go" />-->
             
             <Button x:Name="saveZoneButton" Text="Save" Clicked="saveZoneButton_Clicked" />
             <Button x:Name="nextButton" Text="Next" Clicked="nextButton_Clicked" IsEnabled="false"/>
 
-            <!--<Label x:Name="Temp3" Text="This is where the Caregiver ID will go" />
-            <Label x:Name="Temp4" Text="This is where the PLWD ID will go" />
-            <Label x:Name="Temp5" Text="This is where the Watch ID will go" /> -->
             
         </StackLayout>
     </ContentPage.Content>

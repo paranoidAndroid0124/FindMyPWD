@@ -28,11 +28,5 @@ namespace FindMyPWD
             Navigation.PushAsync(new FindMyPLWD.SignInPage(this.cdp));
         }
 
-        private void tempHomeButton_Clicked(object sender, EventArgs e)
-        {
-            ActiveUser user = new ActiveUser("","","");
-            Navigation.PushAsync(new FindMyPLWD.MainPage(this.cdp, user));
-
-        }
     }
 }
