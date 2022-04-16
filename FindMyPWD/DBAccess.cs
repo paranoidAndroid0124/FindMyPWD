@@ -16,7 +16,7 @@ namespace FindMyPLWD
         private static SqlDataAdapter adapter = new SqlDataAdapter();
         public SqlTransaction DbTran;
 
-        private static string strConnString = "";
+        private static string strConnString = ""; //deleted for security purposes when posting to githib
 
 
         //This will create the connection with the database 
