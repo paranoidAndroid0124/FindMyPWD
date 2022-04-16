@@ -57,8 +57,8 @@ namespace FindMyPLWD
                 //GetCurrentLocation();
 
                 //Going to use Carleton University as the testing position
-                //Location caregiverCurrentPosition = new Location(45.3876, -75.6960);
-                Location caregiverCurrentPosition = new Location(45.3858, -75.6775);
+                Location caregiverCurrentPosition = new Location(45.3876, -75.6960);
+                //Location caregiverCurrentPosition = new Location(45.3858, -75.6775);
                 label3_1.Text = "Latitude: " + caregiverCurrentPosition.Latitude.ToString() + " Longitude: "+ caregiverCurrentPosition.Longitude.ToString();
                 Console.WriteLine("------------------------ PHONE POSITION :" + caregiverCurrentPosition);
 

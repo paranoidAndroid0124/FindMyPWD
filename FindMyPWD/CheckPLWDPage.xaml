@@ -13,7 +13,7 @@
             <Button x:Name="checkOnPlwdButton" Text="Check on PLWD" Clicked="checkOnPlwdButton_Clicked" />
             <Label x:Name="label1" Text="The PLWD was last seen at: " IsVisible="False"/>
             <Label x:Name="label2" Text="" />
-            <Label x:Name="label3" Text="The Caregiver is at Billings Bridge Shopping Centre @: " IsVisible="False" />
+            <Label x:Name="label3" Text="The Caregiver is at Carleton University @: " IsVisible="False" />
             <Label x:Name="label3_1" Text=" " />
             <Label x:Name="label4" Text="" />
             <Label x:Name="label5" Text="Result of Location Check:" IsVisible="False"/>

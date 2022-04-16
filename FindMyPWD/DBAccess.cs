@@ -16,7 +16,7 @@ namespace FindMyPLWD
         private static SqlDataAdapter adapter = new SqlDataAdapter();
         public SqlTransaction DbTran;
 
-        private static string strConnString = "Server=tcp:locationtrackingsystemserver.database.windows.net,1433;Initial Catalog=LocationTrackingSystemdB;Persist Security Info=False;User ID=locationtrackingsystemadmin;Password=SYSC4907Capstone20212022;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private static string strConnString = "";
 
 
         //This will create the connection with the database 
